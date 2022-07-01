@@ -65,7 +65,7 @@ const onCreateAccountPressed = () => {
 
         <CustomButton text = 'Sign In' onPress = {handleLogin} />
         <CustomButton text = 'Forgot Password?' onPress = {onForgotPasswordPressed} type = "TERTIARY" />
-        <CustomButton text = 'Dont have an Account? Click Here' onPress = {onCreateAccountPressed} >
+        <CustomButton text = 'Dont have an Account? Click Here' onPress = {onCreateAccountPressed}  >
           Dont have an account? Create one!
         </CustomButton>
     </View>
