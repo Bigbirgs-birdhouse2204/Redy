@@ -59,14 +59,14 @@ const SignUpUser = () => {
         secureTextEntry={false}
       />
       <CustomInput
-        inputField={'firstName'}
+        inputField={'First Name'}
         value={firstName}
         // onChangeText = {text => setEmail(text)}
         setValue={setfirstName}
         secureTextEntry={false}
       />
       <CustomInput
-        inputField={'lastName'}
+        inputField={'Last Name'}
         value={lastName}
         // onChangeText = {text => setEmail(text)}
         setValue={setlastName}
@@ -80,14 +80,14 @@ const SignUpUser = () => {
         secureTextEntry={true}
       />
       <CustomInput
-        inputField={'confirmPassword'}
+        inputField={'Confirm Password'}
         value={confirmPassword}
         // onChangeText = {text => setconfirmPassword(text)}
         setValue={setconfirmPassword}
         secureTextEntry={true}
       />
 
-      <CustomButton text="Create User" onPress={handleLogin} />
+      <CustomButton text="Create User Account" onPress={handleLogin} />
       <CustomButton text="Back" />
     </View>
   );
