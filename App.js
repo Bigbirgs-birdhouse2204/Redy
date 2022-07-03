@@ -7,6 +7,7 @@ import Maps from './app/Screens/Maps';
 import SignInScreen from './app/Screens/SignInScreen';
 import SignUpScreen from './app/Screens/SignUpScreen';
 import SignUpUser from './app/Screens/SignUpUser';
+import SignUpBusiness from './app/Screens/SignUpBusiness';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,8 +16,10 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         {/* <Stack.Screen name="Home" component={Home} /> */}
-        {/* <Stack.Screen name="Sign In" component={SignInScreen} /> */}
-        <Stack.Screen name="Sign Up" component={SignUpUser} />
+        <Stack.Screen name="Sign In" component={SignInScreen} />
+        <Stack.Screen name="Choose Account" component={SignUpScreen} />
+        <Stack.Screen name="Sign Up User" component={SignUpUser} />
+        <Stack.Screen name="Sign Up Business" component={SignUpBusiness} />
       </Stack.Navigator>
     </NavigationContainer>
   );

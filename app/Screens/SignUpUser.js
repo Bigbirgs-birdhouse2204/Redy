@@ -47,6 +47,11 @@ const SignUpUser = () => {
     navigation.navigate('Sign Up');
   };
 
+  const backPressed = () => {
+    console.warn('Choose Account');
+    navigation.navigate('Choose Account');
+  };
+
   // RENDER THE FOLLOWING:
   return (
     <View style={styles.logotitle}>
@@ -88,7 +93,11 @@ const SignUpUser = () => {
       />
 
       <CustomButton text="Create User Account" onPress={handleLogin} />
-      <CustomButton text="Back" />
+      <Text style={styles.termsOfUse}>
+        By registering, you confirm that you accept our Terms of Use and Privacy
+        Policy
+      </Text>
+      <CustomButton text="Back" onPress={backPressed} />
     </View>
   );
 };
