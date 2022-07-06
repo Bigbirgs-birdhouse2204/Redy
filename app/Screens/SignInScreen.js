@@ -1,47 +1,36 @@
 import { View, Text, Image, StyleSheet } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { useDispatch, Provider } from 'react-redux';
 import CustomInput from '../CustomComponents/CustomInput';
 import CustomButton from '../CustomComponents/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import { authenticate } from '../store';
+import * as SecureStore from 'expo-secure-store';
 
-const SignInScreen = () => {
+const SignInScreen = (props) => {
   // Local State:
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // const dispatch = useDispatch();
+
   // UseNavigation Hook:
   const navigation = useNavigation();
 
-  // useEffect Hook:
-  useEffect(() => {
-    // const unsubscribe = auth.onAuthStateChanged(user => {
-    //   if (user) {
-    //     console.log(user)
-    //     console.warn('Already Signed In')
-    //     navigation.replace('Task Screen')
-    //   }
-    // })
-    // return unsubscribe;
-  }, []);
-
-  // Functions within SignInScreen:
-  const handleLogin = () => {
-    // auth.signInWithEmailAndPassword(email, password)
-    // .then(userCredentials => {
-    //   const user = userCredentials.user;
-    //   console.log(`Logged in with:`, user.email)
-    //   navigation.replace('Task Screen')
-    // })
-    // .catch(error => {alert(error.message)})
-  };
-
-  const onForgotPasswordPressed = () => {
-    console.warn('Forgot Password');
+  const onHome = () => {
+    navigation.navigate('Home');
   };
 
   const onCreateAccountPressed = () => {
     console.warn('Create Account');
     navigation.navigate('Choose Account');
+  };
+
+  // store the token then navigate to the app's main screen
+  const storeToken = () => {
+    SecureStore.setItemAsync('token', 'abc').then(
+      props.navigation.navigate('App')
+    );
   };
 
   // RENDER THE FOLLOWING:
@@ -65,7 +54,7 @@ const SignInScreen = () => {
         setValue={setPassword}
         secureTextEntry={true}
       />
-      <CustomButton text="Sign In" onPress={handleLogin} />
+      <CustomButton text="Sign In" onPress={storeToken} />
       <CustomButton
         text="Forgot Password?"
         onPress={onForgotPasswordPressed}
@@ -105,4 +94,9 @@ const styles = StyleSheet.create({
     resizeMode: 'stretch',
   },
 });
+
+SignInScreen.navigationOptions = {
+  title: 'Sign In',
+};
+
 export default SignInScreen;
