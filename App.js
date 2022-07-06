@@ -12,20 +12,20 @@ import SingleRestaurant from "./app/Screens/SingleRestaurant";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Sign In" component={Maps} />
       <Stack.Screen name="Sign Up" component={SignUpScreen} />
       <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-  // const globalScreenOptions = {
-  //   headerStyle: { backgroundColor: colors.secondaryColor },
-  //   headerTitleStyle: { color: colors.white },
-  //   headerTintColor: colors.white,
-  // };
+// const globalScreenOptions = {
+//   headerStyle: { backgroundColor: colors.secondaryColor },
+//   headerTitleStyle: { color: colors.white },
+//   headerTintColor: colors.white,
+// };

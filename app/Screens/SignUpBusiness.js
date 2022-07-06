@@ -4,10 +4,13 @@ import CustomInput from '../CustomComponents/CustomInput';
 import CustomButton from '../CustomComponents/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 
-const SignInScreen = () => {
+const SignUpBusiness = () => {
   // Local State:
-  const [email, setEmail] = useState('');
+  const [firstName, setfirstName] = useState('');
+  const [lastName, setlastName] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+  const [email, setEmail] = useState('');
 
   // UseNavigation Hook:
   const navigation = useNavigation();
@@ -41,21 +44,37 @@ const SignInScreen = () => {
 
   const onCreateAccountPressed = () => {
     console.warn('Create Account');
+    navigation.navigate('Sign Up');
+  };
+
+  const backPressed = () => {
+    console.warn('Choose Account');
     navigation.navigate('Choose Account');
   };
 
   // RENDER THE FOLLOWING:
   return (
     <View style={styles.logotitle}>
-      <Image style={styles.logo} source={require('../assets/Redy.png')} />
       <Text style={styles.title}>Redy</Text>
-
-      {/* <Image source={{ uri: 'https://ibb.co/THmST7C' }} />; */}
       <CustomInput
         inputField={'Email'}
         value={email}
         // onChangeText = {text => setEmail(text)}
         setValue={setEmail}
+        secureTextEntry={false}
+      />
+      <CustomInput
+        inputField={'First Name'}
+        value={firstName}
+        // onChangeText = {text => setEmail(text)}
+        setValue={setfirstName}
+        secureTextEntry={false}
+      />
+      <CustomInput
+        inputField={'Last Name'}
+        value={lastName}
+        // onChangeText = {text => setEmail(text)}
+        setValue={setlastName}
         secureTextEntry={false}
       />
       <CustomInput
@@ -65,18 +84,20 @@ const SignInScreen = () => {
         setValue={setPassword}
         secureTextEntry={true}
       />
-      <CustomButton text="Sign In" onPress={handleLogin} />
-      <CustomButton
-        text="Forgot Password?"
-        onPress={onForgotPasswordPressed}
-        type="TERTIARY"
+      <CustomInput
+        inputField={'Confirm Password'}
+        value={confirmPassword}
+        // onChangeText = {text => setconfirmPassword(text)}
+        setValue={setconfirmPassword}
+        secureTextEntry={true}
       />
-      <CustomButton
-        text="Dont have an Account? Click Here"
-        onPress={onCreateAccountPressed}
-      >
-        Dont have an account? Create one!
-      </CustomButton>
+
+      <CustomButton text="Create User Account" onPress={handleLogin} />
+      <Text style={styles.termsOfUse}>
+        By registering, you confirm that you accept our Terms of Use and Privacy
+        Policy
+      </Text>
+      <CustomButton text="Back" onPress={backPressed} />
     </View>
   );
 };
@@ -89,8 +110,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 100,
+    height: 100,
     alignItems: 'center',
     maxWidth: 300,
   },
@@ -99,10 +120,5 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
   },
-  stretch: {
-    width: 200,
-    height: 200,
-    resizeMode: 'stretch',
-  },
 });
-export default SignInScreen;
+export default SignUpBusiness;
