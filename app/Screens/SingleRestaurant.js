@@ -1,18 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import Dialog from "react-native-dialog";
 
-
-
-const Home = () => {
-
+const SingleRestaurant = () => {
 
   return (
     <View>
-      <Text>Home</Text>
+<Text>Hi</Text>
     </View>
-  )
+  );
 }
 
-export default Home
+export default SingleRestaurant
 
 const styles = StyleSheet.create({})
