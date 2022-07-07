@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,6 +14,19 @@ import store from './app/store';
 import { createStackNavigator } from 'react-navigation-stack';
 import SignIn from './app/Screens/SignInScreen';
 import Settings from './app/Screens/settings';
+=======
+import * as React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import Home from "./app/Screens/Home";
+import Maps from "./app/Screens/Maps";
+import SignInScreen from "./app/Screens/SignInScreen";
+import SignUpScreen from "./app/Screens/SignUpScreen";
+import SingleRestaurant from "./app/Screens/SingleRestaurant";
+import SignUpUser from "./app/Screens/SignUpUser";
+
+>>>>>>> bceff68487bf88ed634e7143b1bfc26e2447dc08
 
 const Stack = createNativeStackNavigator();
 // const AuthStack = createStackNavigator({
@@ -23,6 +37,7 @@ const Stack = createNativeStackNavigator();
 // });
 export default function App() {
   return (
+<<<<<<< HEAD
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
@@ -34,6 +49,17 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
+=======
+    <NavigationContainer>
+      <Stack.Navigator>
+      <Stack.Screen name="Sign In" component={SignUpUser} />
+      {/* <Stack.Screen name="Sign In" component={Maps} /> */}
+      <Stack.Screen name="Sign Up" component={SignUpScreen} />
+      <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
+
+      </Stack.Navigator>
+    </NavigationContainer>
+>>>>>>> bceff68487bf88ed634e7143b1bfc26e2447dc08
   );
 }
 
