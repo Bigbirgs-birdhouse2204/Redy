@@ -14,16 +14,8 @@ const SignInScreen = ({ navigation }) => {
 
   // const dispatch = useDispatch();
 
-  // UseNavigation Hook:
-  // const navigation = useNavigation();
-
-  const onHome = () => {
-    navigation.navigate("Home");
-  };
-
   const onCreateAccountPressed = () => {
-    console.warn("Create Account");
-    navigation.navigate("Choose Account");
+    navigation.navigate("Sign Up");
   };
 
   const onForgotPasswordPressed = () => {
