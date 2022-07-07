@@ -1,71 +1,62 @@
-import { View, Text, Image, StyleSheet } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import CustomInput from '../CustomComponents/CustomInput';
-import CustomButton from '../CustomComponents/CustomButton';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, Image, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { useDispatch, Provider } from "react-redux";
+import CustomInput from "../CustomComponents/CustomInput";
+import CustomButton from "../CustomComponents/CustomButton";
+import { useNavigation } from "@react-navigation/native";
+import { authenticate } from "../store";
+import * as SecureStore from "expo-secure-store";
 
-const SignInScreen = () => {
+const SignInScreen = ({ navigation }) => {
   // Local State:
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // const dispatch = useDispatch();
 
   // UseNavigation Hook:
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
 
-  // useEffect Hook:
-  useEffect(() => {
-    // const unsubscribe = auth.onAuthStateChanged(user => {
-    //   if (user) {
-    //     console.log(user)
-    //     console.warn('Already Signed In')
-    //     navigation.replace('Task Screen')
-    //   }
-    // })
-    // return unsubscribe;
-  }, []);
-
-  // Functions within SignInScreen:
-  const handleLogin = () => {
-    // auth.signInWithEmailAndPassword(email, password)
-    // .then(userCredentials => {
-    //   const user = userCredentials.user;
-    //   console.log(`Logged in with:`, user.email)
-    //   navigation.replace('Task Screen')
-    // })
-    // .catch(error => {alert(error.message)})
-  };
-
-  const onForgotPasswordPressed = () => {
-    console.warn('Forgot Password');
+  const onHome = () => {
+    navigation.navigate("Home");
   };
 
   const onCreateAccountPressed = () => {
-    console.warn('Create Account');
-    navigation.navigate('Choose Account');
+    console.warn("Create Account");
+    navigation.navigate("Choose Account");
+  };
+
+  const onForgotPasswordPressed = () => {
+    console.warn("Forgot Password");
+  };
+
+  // store the token then navigate to the app's main screen
+  const storeToken = () => {
+    SecureStore.setItemAsync("token", "abc").then(navigation.navigate("Home"));
   };
 
   // RENDER THE FOLLOWING:
   return (
     <View style={styles.logotitle}>
-      <Image style={styles.logo} source={require('../assets/Redy.png')} />
+      <Image style={styles.logo} source={require("../assets/Redy.png")} />
       <Text style={styles.title}>Redy</Text>
 
       {/* <Image source={{ uri: 'https://ibb.co/THmST7C' }} />; */}
       <CustomInput
-        inputField={'Email'}
+        inputField={"Email"}
         value={email}
         // onChangeText = {text => setEmail(text)}
         setValue={setEmail}
         secureTextEntry={false}
       />
       <CustomInput
-        inputField={'Password'}
+        inputField={"Password"}
         value={password}
         // onChangeText = {text => setPassword(text)}
         setValue={setPassword}
         secureTextEntry={true}
       />
-      <CustomButton text="Sign In" onPress={handleLogin} />
+      <CustomButton text="Sign In" onPress={storeToken} />
       <CustomButton
         text="Forgot Password?"
         onPress={onForgotPasswordPressed}
@@ -83,26 +74,31 @@ const SignInScreen = () => {
 // STYLES
 const styles = StyleSheet.create({
   logotitle: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingVertical: 150,
     paddingHorizontal: 20,
   },
   logo: {
     width: 200,
     height: 200,
-    alignItems: 'center',
+    alignItems: "center",
     maxWidth: 300,
   },
   title: {
     marginTop: 30,
     fontSize: 30,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   stretch: {
     width: 200,
     height: 200,
-    resizeMode: 'stretch',
+    resizeMode: "stretch",
   },
 });
+
+SignInScreen.navigationOptions = {
+  title: "Sign In",
+};
+
 export default SignInScreen;
