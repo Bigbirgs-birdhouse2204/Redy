@@ -32,7 +32,7 @@ export default function Maps() {
   // console.log(redyRestaurantPlaceIds())
   const handleRedirect = () => {
     setVisibleState(false);
-    navigation.navigate("Single Restaurant");
+    navigation.navigate("Single Restaurant", { dialogInfo });
   };
 
   const findRestaurantsNearby = async (latitude, longitude) => {
@@ -139,18 +139,7 @@ export default function Maps() {
                     });
                     setRestaurantPlaceID(restaurant.place_id);
                     setVisibleState(true);
-                    console.log({
-                      name: restaurant.name,
-                      address: restaurant.vicinity,
-                      ratings: restaurant.rating,
-                      priceLevel: restaurant.price_level,
-                      placeId: restaurant.place_id,
-                      totalUserRatings: restaurant.user_ratings_total,
-                      imgUrl: restaurant.photos[0].photo_reference,
-                      longitude: restaurant.geometry.location.lng,
-                      latitude: restaurant.geometry.location.lat,
-
-                    })
+                    console.log(restaurant)
                   }}
                 />
               )
