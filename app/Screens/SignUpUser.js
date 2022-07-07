@@ -3,6 +3,9 @@ import React, { useState, useEffect } from 'react';
 import CustomInput from '../CustomComponents/CustomInput';
 import CustomButton from '../CustomComponents/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import axios from "axios";
 
 const SignUpUser = () => {
   // Local State:
@@ -36,6 +39,42 @@ const SignUpUser = () => {
     //   navigation.replace('Task Screen')
     // })
     // .catch(error => {alert(error.message)})
+  };
+  const storeToken = async (value) => {
+    try {
+      await AsyncStorage.setItem('token', value)
+    } catch (e) {
+      // saving error
+    }
+  }
+const signUpTest = async () => {
+    try {
+
+      let formData = {
+          firstName: 'expo',
+          lastName: 'project',
+          email: 'expo@gmail.com',
+          password: '123',
+          phone: '555-555-5555',
+          isAdmin: false,
+      }
+      const res = await axios.post(`https://redy-capstone.herokuapp.com/auth/signup`, formData);
+
+     storeToken(res.data.token)
+
+     console.log( await AsyncStorage.getItem('token'))
+
+      // window.localStorage.setItem(TOKEN, res.data.token);
+      //localStorage.getItem('token');
+      // localStorage.getItem('token');
+      // dispatch(me());
+      console.log(`test: `,res.data)
+      return res.data
+    } catch (authError) {
+      console.log(authError)
+      return authError
+      // return dispatch(setAuth({ error: authError }));
+    }
   };
 
   const onForgotPasswordPressed = () => {
@@ -92,7 +131,7 @@ const SignUpUser = () => {
         secureTextEntry={true}
       />
 
-      <CustomButton text="Create User Account" onPress={handleLogin} />
+      <CustomButton text="Create User Account" onPress={signUpTest} />
       <Text style={styles.termsOfUse}>
         By registering, you confirm that you accept our Terms of Use and Privacy
         Policy

@@ -7,6 +7,7 @@ import Maps from "./app/Screens/Maps";
 import SignInScreen from "./app/Screens/SignInScreen";
 import SignUpScreen from "./app/Screens/SignUpScreen";
 import SingleRestaurant from "./app/Screens/SingleRestaurant";
+import SignUpUser from "./app/Screens/SignUpUser";
 
 
 const Stack = createNativeStackNavigator();
@@ -15,7 +16,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Sign In" component={Maps} />
+      <Stack.Screen name="Sign In" component={SignUpUser} />
+      {/* <Stack.Screen name="Sign In" component={Maps} /> */}
       <Stack.Screen name="Sign Up" component={SignUpScreen} />
       <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
 
