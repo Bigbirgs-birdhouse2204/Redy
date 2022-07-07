@@ -18,18 +18,18 @@ export default function Maps() {
   const [location, setLocation] = React.useState(null);
   const [errorMsg, setErrorMsg] = React.useState(null);
   const [restaurants, setRestaurants] = React.useState([]);
-  const [restaurantPlaceID, setRestaurantPlaceID] = React.useState('');
+  const [restaurantPlaceID, setRestaurantPlaceID] = React.useState("");
   const [visibleState, setVisibleState] = React.useState(false);
   const [dialogInfo, setDialogInfo] = React.useState({});
-  const [placeIdArr, setPlaceIdArr] = React.useState([])
-  const redyRestaurantPlaceIds = async () =>{
-   const {data} = await axios.get('https://redy-capstone.herokuapp.com/api/restaurant')
-   const Idarr = data.map(place => place.placeId)
-   setPlaceIdArr(Idarr)
-  //  return data.map(place => place.placeId)
-
-  }
-  // console.log(redyRestaurantPlaceIds())
+  const [placeIdArr, setPlaceIdArr] = React.useState([]);
+  const redyRestaurantPlaceIds = async () => {
+    const { data } = await axios.get(
+      "https://redy-capstone.herokuapp.com/api/restaurant"
+    );
+    const Idarr = data.map((place) => place.placeId);
+    setPlaceIdArr(Idarr);
+    //  return data.map(place => place.placeId)
+  };
   const handleRedirect = () => {
     setVisibleState(false);
     navigation.navigate("Single Restaurant");
@@ -45,7 +45,6 @@ export default function Maps() {
     };
     axios(config)
       .then(function (response) {
-        // console.log(response.data.results);
         setRestaurants(response.data.results);
         JSON.stringify(response.data);
       })
@@ -70,7 +69,7 @@ export default function Maps() {
     let latitude;
     let longitude;
     (async () => {
-      redyRestaurantPlaceIds()
+      redyRestaurantPlaceIds();
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setErrorMsg("Permission to access location was denied");
@@ -80,7 +79,7 @@ export default function Maps() {
       let location = await Location.getCurrentPositionAsync({});
 
       setLocation(location);
-      // console.log(location);
+
       latitude = location.coords.latitude;
       longitude = location.coords.longitude;
 
@@ -108,102 +107,87 @@ export default function Maps() {
         {!restaurants.length
           ? null
           : restaurants.map((restaurant, index) => {
-            if(placeIdArr.includes( restaurant.place_id)){
-              return (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    longitude: restaurant.geometry.location.lng,
-                    latitude: restaurant.geometry.location.lat,
-                  }}
-                  pinColor="green"
-                  title={restaurant.name}
-                  onPress={() => {
-                    setDialogInfo({
-                      title: restaurant.name,
-                      rating: restaurant.rating,
-                      vicinity: restaurant.vicinity,
-                      price_level: restaurant.price_level,
-                      // button1: {
-                      //   label: "Go Back",
+              if (placeIdArr.includes(restaurant.place_id)) {
+                return (
+                  <Marker
+                    key={index}
+                    coordinate={{
+                      longitude: restaurant.geometry.location.lng,
+                      latitude: restaurant.geometry.location.lat,
+                    }}
+                    pinColor="green"
+                    title={restaurant.name}
+                    onPress={() => {
+                      setDialogInfo({
+                        title: restaurant.name,
+                        rating: restaurant.rating,
+                        vicinity: restaurant.vicinity,
+                        price_level: restaurant.price_level,
+                        // button1: {
+                        //   label: "Go Back",
                         // onPress: () => {
                         //   setVisibleState(false);
-                      //   },
-                      // },
-                      // button2: {
-                      //   label: "Reserve Now",
+                        //   },
+                        // },
+                        // button2: {
+                        //   label: "Reserve Now",
                         // onPress: () => {
                         //   handleRedirect();
-                      //   },
-                      // },
-                    });
-                    setRestaurantPlaceID(restaurant.place_id);
-                    setVisibleState(true);
-                    console.log({
-                      name: restaurant.name,
-                      address: restaurant.vicinity,
-                      ratings: restaurant.rating,
-                      priceLevel: restaurant.price_level,
-                      placeId: restaurant.place_id,
-                      totalUserRatings: restaurant.user_ratings_total,
-                      imgUrl: restaurant.photos[0].photo_reference,
+                        //   },
+                        // },
+                      });
+                      setRestaurantPlaceID(restaurant.place_id);
+                      setVisibleState(true);
+                      console.log({
+                        name: restaurant.name,
+                        address: restaurant.vicinity,
+                        ratings: restaurant.rating,
+                        priceLevel: restaurant.price_level,
+                        placeId: restaurant.place_id,
+                        totalUserRatings: restaurant.user_ratings_total,
+                        imgUrl: restaurant.photos[0].photo_reference,
+                        longitude: restaurant.geometry.location.lng,
+                        latitude: restaurant.geometry.location.lat,
+                      });
+                    }}
+                  />
+                );
+              } else {
+                return (
+                  <Marker
+                    key={index}
+                    coordinate={{
                       longitude: restaurant.geometry.location.lng,
                       latitude: restaurant.geometry.location.lat,
-
-                    })
-                  }}
-                />
-              )
-            } else{
-              return (
-                <Marker
-                  key={index}
-                  coordinate={{
-                    longitude: restaurant.geometry.location.lng,
-                    latitude: restaurant.geometry.location.lat,
-                  }}
-                  pinColor="wheat"
-                  title={restaurant.name}
-                  onPress={() => {
-                    setDialogInfo({
-                      title: 'This Restaurant is not on Redy',
-                      rating: 'N/A',
-                      vicinity: 'N/A',
-                      price_level: 'N/A',
-                      button1: {
-
-                        label: "Go Back",
-                        onPress: () => {
-                          setVisibleState(false);
+                    }}
+                    pinColor="wheat"
+                    title={restaurant.name}
+                    onPress={() => {
+                      setDialogInfo({
+                        title: "This Restaurant is not on Redy",
+                        rating: "N/A",
+                        vicinity: "N/A",
+                        price_level: "N/A",
+                        button1: {
+                          label: "Go Back",
+                          onPress: () => {
+                            setVisibleState(false);
+                          },
                         },
-                      },
-                      button2: {
-                        label: "Go Back",
-                        onPress: () => {
-                          setVisibleState(false);
+                        button2: {
+                          label: "Go Back",
+                          onPress: () => {
+                            setVisibleState(false);
 
-                          // handleRedirect();
+                            // handleRedirect();
+                          },
                         },
-                      },
-                    });
-                    setVisibleState(true);
-                    console.log({
-                      name: restaurant.name,
-                      address: restaurant.vicinity,
-                      ratings: restaurant.rating,
-                      priceLevel: restaurant.price_level,
-                      placeId: restaurant.place_id,
-                      totalUserRatings: restaurant.user_ratings_total,
-                      imgUrl: restaurant.photos[0].photo_reference,
-                      longitude: restaurant.geometry.location.lng,
-                      latitude: restaurant.geometry.location.lat,
-                    })
-                  }}
-                />
-              )
-            }
-
-
+                      });
+                      setVisibleState(true);
+                    }}
+                  />
+                );
+              }
             })}
       </MapView>
       <View>
@@ -220,14 +204,14 @@ export default function Maps() {
           </Dialog.Description>
           <Dialog.Button
             label="Go Back"
-            onPress={ () => setVisibleState(false)}
+            onPress={() => setVisibleState(false)}
           />
- {placeIdArr.includes(restaurantPlaceID) ?
-          <Dialog.Button
-          label="Reserve Now"
-          onPress={() => handleRedirect()}
-          />
- : null       }
+          {placeIdArr.includes(restaurantPlaceID) ? (
+            <Dialog.Button
+              label="Reserve Now"
+              onPress={() => handleRedirect()}
+            />
+          ) : null}
         </Dialog.Container>
       </View>
     </View>

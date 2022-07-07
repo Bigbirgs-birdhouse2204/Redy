@@ -1,11 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const TOKEN = 'token';
+const TOKEN = "token";
 
 /**
  * ACTION TYPES
  */
-const SET_AUTH = 'SET_AUTH';
+const SET_AUTH = "SET_AUTH";
 
 /**
  * ACTION CREATORS
@@ -16,10 +17,9 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
  * THUNK CREATORS
  */
 export const me = () => async (dispatch) => {
-  const token = window.localStorage.getItem(TOKEN);
-  // const cart = JSON.parse(window.localStorage.getItem('cart'));
+  const token = AsyncStorage.getItem(TOKEN);
   if (token) {
-    const res = await axios.get('/auth/me', {
+    const res = await axios.get("/auth/me", {
       headers: {
         authorization: token,
       },
@@ -31,7 +31,7 @@ export const me = () => async (dispatch) => {
 // export const authenticate = (formData, method) => async (dispatch) => {
 //   try {
 //     const res = await axios.post(`/auth/${method}`, formData);
-//     window.localStorage.setItem(TOKEN, res.data.token);
+//     AsyncStorage.setItem(TOKEN, res.data.token);
 //     //localStorage.getItem('token');
 //     localStorage.getItem('token');
 //     dispatch(me());
@@ -42,26 +42,20 @@ export const me = () => async (dispatch) => {
 
 export const authenticate = (email, password, method) => async (dispatch) => {
   try {
-    // console.log('Did this work????');
     const res = await axios.post(
       `https://redy-capstone.herokuapp.com/auth/${method}`,
       { email, password }
     );
-    window.localStorage.setItem(TOKEN, res.data.token);
+    AsyncStorage.setItem(TOKEN, res.data.token);
     dispatch(me());
-    console.log('This did work!');
   } catch (authError) {
-    console.log('Did this work????');
-
     return dispatch(setAuth({ error: authError }));
   }
 };
 
 export const logout = () => {
-  window.localStorage.removeItem(TOKEN);
-  window.localStorage.clear();
-  logoutCart();
-  history.push('/login');
+  AsyncStorage.removeItem(TOKEN);
+  AsyncStorage.clear();
   return {
     type: SET_AUTH,
     auth: {},
