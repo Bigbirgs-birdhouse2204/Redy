@@ -1,11 +1,12 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useDispatch, Provider } from "react-redux";
+import axios from "axios";
+
 import CustomInput from "../CustomComponents/CustomInput";
 import CustomButton from "../CustomComponents/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { authenticate } from "../store";
-import * as SecureStore from "expo-secure-store";
 
 const SignInScreen = ({ navigation }) => {
   // Local State:
@@ -31,9 +32,39 @@ const SignInScreen = ({ navigation }) => {
   };
 
   // store the token then navigate to the app's main screen
-  const storeToken = () => {
-    SecureStore.setItemAsync("token", "abc").then(navigation.navigate("Home"));
+  const storeToken = async (value) => {
+    try {
+      await AsyncStorage.setItem("token", value);
+    } catch (e) {
+      // saving error
+    }
   };
+
+  const loginTest = async () => {
+    try {
+      let formData = {
+        email,
+        password,
+      };
+      const res = await axios.post(
+        `https://redy-capstone.herokuapp.com/auth/login`,
+        formData
+      );
+
+      storeToken(res.data.token);
+
+      console.log(
+        await AsyncStorage.getItem("token").then(navigation.navigate("Home"))
+      );
+      return res.data;
+    } catch (authError) {
+      console.log(authError);
+      return authError;
+    }
+  };
+  // const storeToken = () => {
+  //   SecureStore.setItemAsync("token", "abc").then(navigation.navigate("Home"));
+  // };
 
   // RENDER THE FOLLOWING:
   return (
