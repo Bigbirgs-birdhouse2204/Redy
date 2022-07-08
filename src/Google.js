@@ -1,5 +1,5 @@
-import React from 'react';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import React from "react";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 const GooglePlacesInput = () => {
   return (
@@ -7,11 +7,10 @@ const GooglePlacesInput = () => {
       placeholder="Search"
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        console.log(data, details);
       }}
       query={{
-        key: 'AIzaSyCsOMga-aTXAiDbUpUV_oYlMWOnhyj4BZM',
-        language: 'en',
+        key: "AIzaSyCsOMga-aTXAiDbUpUV_oYlMWOnhyj4BZM",
+        language: "en",
       }}
     />
   );

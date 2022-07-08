@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, SafeAreaView } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useDispatch, Provider } from "react-redux";
 import axios from "axios";
@@ -16,16 +16,8 @@ const SignInScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  // UseNavigation Hook:
-  // const navigation = useNavigation();
-
-  const onHome = () => {
-    navigation.navigate("Home");
-  };
-
   const onCreateAccountPressed = () => {
-    console.warn("Create Account");
-    navigation.navigate("Choose Account");
+    navigation.navigate("Sign Up");
   };
 
   const onForgotPasswordPressed = () => {
@@ -64,7 +56,7 @@ const SignInScreen = ({ navigation }) => {
 
   // RENDER THE FOLLOWING:
   return (
-    <View style={styles.logotitle}>
+    <SafeAreaView style={styles.logotitle}>
       <Image style={styles.logo} source={require("../assets/Redy.png")} />
       <Text style={styles.title}>Redy</Text>
 
@@ -95,13 +87,14 @@ const SignInScreen = ({ navigation }) => {
       >
         Dont have an account? Create one!
       </CustomButton>
-    </View>
+    </SafeAreaView>
   );
 };
 // STYLES
 const styles = StyleSheet.create({
   logotitle: {
-    justifyContent: "space-between",
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
     paddingVertical: 150,
     paddingHorizontal: 20,

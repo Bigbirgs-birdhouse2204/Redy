@@ -1,12 +1,13 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TOKEN = 'token';
+
+const TOKEN = "token";
 
 /**
  * ACTION TYPES
  */
-const SET_AUTH = 'SET_AUTH';
+const SET_AUTH = "SET_AUTH";
 
 /**
  * ACTION CREATORS
@@ -21,6 +22,7 @@ export const me = (navigation) => async (dispatch) => {
   // const cart = JSON.parse(AsyncStorage.getItem('cart'));
   if (token) {
     const res = await axios.get('https://redy-capstone.herokuapp.com/auth/me', {
+
       headers: {
         authorization: token,
       },
@@ -45,7 +47,6 @@ export const me = (navigation) => async (dispatch) => {
 
 export const authenticate = (email, password, method, navigation) => async (dispatch) => {
   try {
-    // console.log('Did this work????');
     const res = await axios.post(
       `https://redy-capstone.herokuapp.com/auth/${method}`,
       { email, password }
@@ -56,9 +57,8 @@ export const authenticate = (email, password, method, navigation) => async (disp
 
 
     console.log('This did work!');
-  } catch (authError) {
-    console.log('Did this work????');
 
+  } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }
 };
@@ -67,6 +67,7 @@ export const logout = async () => {
    await AsyncStorage.removeItem(TOKEN);
   await AsyncStorage.clear();
   history.push('/login');
+
   return {
     type: SET_AUTH,
     auth: {},
