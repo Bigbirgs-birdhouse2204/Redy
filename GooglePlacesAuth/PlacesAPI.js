@@ -1,20 +1,19 @@
-import React from 'react';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
 
 const PlacesAPI = () => {
   return (
     <GooglePlacesAutocomplete
       style={styles.container}
-      placeholder='Search'
+      placeholder="Search"
       onPress={(data, details = null) => {
         // 'details' is provided when fetchDetails = true
-        console.log(data, details);
       }}
       query={{
-        key: 'AIzaSyBiL6FWWWLLP1E-9oT6ySdw-BhDwP0nn0M',
-        language: 'en',
+        key: "AIzaSyBiL6FWWWLLP1E-9oT6ySdw-BhDwP0nn0M",
+        language: "en",
       }}
     />
   );
@@ -27,8 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000000",
     alignItems: "center",
     justifyContent: "center",
-
   },
-})
+});
 
 export default PlacesAPI;

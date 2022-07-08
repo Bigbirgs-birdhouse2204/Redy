@@ -1,12 +1,11 @@
 import { View, Text, Image, StyleSheet, SafeAreaView } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useDispatch, Provider } from "react-redux";
-import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import CustomInput from "../CustomComponents/CustomInput";
 import CustomButton from "../CustomComponents/CustomButton";
-import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authenticate } from "../store";
 
 const SignInScreen = ({ navigation }) => {
@@ -24,43 +23,20 @@ const SignInScreen = ({ navigation }) => {
     console.warn("Forgot Password");
   };
 
-  // store the token then navigate to the app's main screen
-
-
   const loginTest = async () => {
     try {
-      // let formData = {
-      //   email,
-      //   password,
-      // };
-
-      dispatch(authenticate(email, password, 'login', navigation))
-      // const res = await axios.post(
-      //   `https://redy-capstone.herokuapp.com/auth/login`,
-      //   formData
-      // );
-      // await AsyncStorage.setItem("token", res.data.token);
-
-      console.log(
-        // await AsyncStorage.getItem("token").then(navigation.navigate("Home"))
-      );
-      // return res.data;
+      dispatch(authenticate(email, password, "login", navigation));
     } catch (authError) {
       console.log(authError);
       return authError;
     }
   };
-  // const storeToken = () => {
-  //   SecureStore.setItemAsync("token", "abc").then(navigation.navigate("Home"));
-  // };
 
   // RENDER THE FOLLOWING:
   return (
     <SafeAreaView style={styles.logotitle}>
       <Image style={styles.logo} source={require("../assets/Redy.png")} />
       <Text style={styles.title}>Redy</Text>
-
-      {/* <Image source={{ uri: 'https://ibb.co/THmST7C' }} />; */}
       <CustomInput
         inputField={"Email"}
         value={email}
