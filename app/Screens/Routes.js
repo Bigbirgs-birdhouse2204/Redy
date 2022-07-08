@@ -9,7 +9,7 @@ import SignInScreen from "./SignInScreen";
 import SignUpScreen from "./SignUpScreen";
 import SingleRestaurant from "./SingleRestaurant";
 import SignUpUser from "./SignUpUser";
-import SignUpBusiness from "./SignUpBusiness";
+import SignUpBusinessUser from "./SignUpBusinessUser";
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +20,10 @@ export default function App() {
         <Stack.Screen name="Sign In" component={SignInScreen} />
         <Stack.Screen name="Sign Up" component={SignUpScreen} />
         <Stack.Screen name="Sign Up User" component={SignUpUser} />
-        <Stack.Screen name="Sign Up Business" component={SignUpBusiness} />
+        <Stack.Screen
+          name="Sign Up Business User"
+          component={SignUpBusinessUser}
+        />
         <Stack.Screen
           name="Home"
           component={Home}

@@ -1,13 +1,13 @@
-import { View, Text, Image, StyleSheet } from "react-native";
-import React, { useState, useEffect } from "react";
-import CustomInput from "../CustomComponents/CustomInput";
-import CustomButton from "../CustomComponents/CustomButton";
+import { View, Text, Image, StyleSheet, Alert } from "react-native";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
 import axios from "axios";
 
-const SignUpUser = () => {
+import CustomInput from "../CustomComponents/CustomInput";
+import CustomButton from "../CustomComponents/CustomButton";
+
+const SignUpUser = ({ navigation }) => {
   // Local State:
   const [email, setEmail] = useState("");
   const [firstName, setfirstName] = useState("");
@@ -16,76 +16,39 @@ const SignUpUser = () => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
   // UseNavigation Hook:
-  const navigation = useNavigation();
 
-  // useEffect Hook:
-  useEffect(() => {
-    // const unsubscribe = auth.onAuthStateChanged(user => {
-    //   if (user) {
-    //
-    //     console.warn('Already Signed In')
-    //     navigation.replace('Task Screen')
-    //   }
-    // })
-    // return unsubscribe;
-  }, []);
-
-  // Functions within SignInScreen:
-  const handleLogin = () => {
-    // auth.signInWithEmailAndPassword(email, password)
-    // .then(userCredentials => {
-    //   const user = userCredentials.user;
-    //   navigation.replace('Task Screen')
-    // })
-    // .catch(error => {alert(error.message)})
-  };
-  const storeToken = async (value) => {
-    try {
-      await AsyncStorage.setItem("token", value);
-    } catch (e) {
-      // saving error
-    }
-  };
   const signUpTest = async () => {
     try {
       let formData = {
-        firstName: "expo",
-        lastName: "project",
-        email: "expo@gmail.com",
-        password: "123",
-        phone: "555-555-5555",
-        isAdmin: false,
+        firstName,
+        lastName,
+        email,
+        password,
+        phone: phoneNumber,
       };
       const res = await axios.post(
         `https://redy-capstone.herokuapp.com/auth/signup`,
         formData
       );
-
-
-      // window.localStorage.setItem(TOKEN, res.data.token);
-      //localStorage.getItem('token');
-      // localStorage.getItem('token');
-      // dispatch(me());
-
+      // return dispatch(setAuth({ error: authError }));
+      navigation.navigate("Sign In");
       return res.data;
     } catch (authError) {
       return authError;
-      // return dispatch(setAuth({ error: authError }));
     }
   };
 
-  const onForgotPasswordPressed = () => {
-    console.warn("Forgot Password");
-  };
-
-  const onCreateAccountPressed = () => {
-    console.warn("Create Account");
-    navigation.navigate("Sign Up");
-  };
+  function passwordCheck() {
+    password === confirmPassword
+      ? signUpTest()
+      : Alert.alert("Your passwords don't match");
+    // setPassword("");
+    // setconfirmPassword("");
+  }
 
   // RENDER THE FOLLOWING:
   return (
-    <View style={styles.logotitle}>
+    <View style={styles.formBox}>
       <Text style={styles.title}>Redy</Text>
       <CustomInput
         inputField={"Email"}
@@ -109,6 +72,13 @@ const SignUpUser = () => {
         secureTextEntry={false}
       />
       <CustomInput
+        inputField={"Phone Number"}
+        value={phoneNumber}
+        // onChangeText = {text => setEmail(text)}
+        setValue={setphoneNumber}
+        secureTextEntry={false}
+      />
+      <CustomInput
         inputField={"Password"}
         value={password}
         // onChangeText = {text => setPassword(text)}
@@ -123,7 +93,7 @@ const SignUpUser = () => {
         secureTextEntry={true}
       />
 
-      <CustomButton text="Create User Account" onPress={signUpTest} />
+      <CustomButton text="Create User Account" onPress={passwordCheck} />
       <Text style={styles.termsOfUse}>
         By registering, you confirm that you accept our Terms of Use and Privacy
         Policy
@@ -133,10 +103,11 @@ const SignUpUser = () => {
 };
 // STYLES
 const styles = StyleSheet.create({
-  logotitle: {
-    justifyContent: "space-between",
+  formBox: {
+    flex: 1,
+    justifyContent: "flex-start",
     alignItems: "center",
-    paddingVertical: 150,
+    paddingVertical: 100,
     paddingHorizontal: 20,
   },
   logo: {
