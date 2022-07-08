@@ -45,12 +45,12 @@ export default function Maps() {
       }
     });
     let selected = restaurantId[0].id;
-    // console.log('THIS IS SELECTED', selected);
+
     setSelectedRestaurant(selected);
 
     // data.filter(restaurant => )
 
-    // console.log('THIS IS RESTAURANT ID', selected);
+    console.log('THIS IS RESTAURANT ID', selected);
     // const { data } = await axios.get('/api/table/restaurant/:id');
   };
 

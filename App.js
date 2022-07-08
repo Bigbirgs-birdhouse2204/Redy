@@ -8,6 +8,7 @@ import SignInScreen from './app/Screens/SignInScreen';
 import SignUpScreen from './app/Screens/SignUpScreen';
 import SingleRestaurant from './app/Screens/SingleRestaurant';
 import SignUpUser from './app/Screens/SignUpUser';
+import ConfirmReservation from './app/Screens/ConfirmReservation';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,10 @@ export default function App() {
         <Stack.Screen name="Maps" component={Maps} />
         <Stack.Screen name="Sign Up" component={SignUpScreen} />
         <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
+        <Stack.Screen
+          name="Confirm Reservation"
+          component={ConfirmReservation}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

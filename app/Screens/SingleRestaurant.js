@@ -20,6 +20,7 @@ const SingleRestaurant = (props) => {
   // console.log('THIS IS PROPS', props);
 
   const [tables, setTables] = useState([]);
+  const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -34,10 +35,19 @@ const SingleRestaurant = (props) => {
     console.log('THIS IS TABLE', data);
   };
 
+  const tablePicked = async (tableId) => {
+    setTableSelected(tableId);
+    console.log('THIS IS THE TABLE PICKED', tableSelected);
+    navigation.navigate('Confirm Reservation', {
+      tableSelected,
+    });
+  };
+
   const backPressed = () => {
     setTables([]);
     navigation.navigate('Maps');
   };
+
   return (
     <PaperProvider>
       <ScrollView>
@@ -62,7 +72,9 @@ const SingleRestaurant = (props) => {
             />
             <Card.Actions>
               {/* <Button>Cancel</Button> */}
-              <Button>Confirm Reservation</Button>
+              <Button onPress={() => tablePicked(table.id)}>
+                Confirm Reservation
+              </Button>
             </Card.Actions>
           </Card>
         ))}
