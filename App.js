@@ -11,9 +11,9 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor} loading={null}>
-        <Routes />
-      </PersistGate>
+      {/* <PersistGate persistor={persistor} loading={null}> */}
+      <Routes />
+      {/* </PersistGate> */}
     </Provider>
   );
 }
