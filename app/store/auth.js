@@ -1,4 +1,5 @@
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const TOKEN = 'token';
 
@@ -15,23 +16,25 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 /**
  * THUNK CREATORS
  */
-export const me = () => async (dispatch) => {
-  const token = window.localStorage.getItem(TOKEN);
-  // const cart = JSON.parse(window.localStorage.getItem('cart'));
+export const me = (navigation) => async (dispatch) => {
+  const token = await AsyncStorage.getItem(TOKEN);
+  // const cart = JSON.parse(AsyncStorage.getItem('cart'));
   if (token) {
-    const res = await axios.get('/auth/me', {
+    const res = await axios.get('https://redy-capstone.herokuapp.com/auth/me', {
       headers: {
         authorization: token,
       },
     });
-    return dispatch(setAuth(res.data));
+    dispatch(setAuth(res.data));
+    navigation.navigate("Home")
+    return
   }
 };
 
 // export const authenticate = (formData, method) => async (dispatch) => {
 //   try {
 //     const res = await axios.post(`/auth/${method}`, formData);
-//     window.localStorage.setItem(TOKEN, res.data.token);
+//     AsyncStorage.setItem(TOKEN, res.data.token);
 //     //localStorage.getItem('token');
 //     localStorage.getItem('token');
 //     dispatch(me());
@@ -40,15 +43,18 @@ export const me = () => async (dispatch) => {
 //   }
 // };
 
-export const authenticate = (email, password, method) => async (dispatch) => {
+export const authenticate = (email, password, method, navigation) => async (dispatch) => {
   try {
     // console.log('Did this work????');
     const res = await axios.post(
       `https://redy-capstone.herokuapp.com/auth/${method}`,
       { email, password }
     );
-    window.localStorage.setItem(TOKEN, res.data.token);
-    dispatch(me());
+   await AsyncStorage.setItem(TOKEN, res.data.token);
+    dispatch(me(navigation))
+    // navigation.navigate("Home")
+
+
     console.log('This did work!');
   } catch (authError) {
     console.log('Did this work????');
@@ -57,10 +63,9 @@ export const authenticate = (email, password, method) => async (dispatch) => {
   }
 };
 
-export const logout = () => {
-  window.localStorage.removeItem(TOKEN);
-  window.localStorage.clear();
-  logoutCart();
+export const logout = async () => {
+   await AsyncStorage.removeItem(TOKEN);
+  await AsyncStorage.clear();
   history.push('/login');
   return {
     type: SET_AUTH,

@@ -62,7 +62,7 @@ const signUpTest = async () => {
 
      storeToken(res.data.token)
 
-     console.log( await AsyncStorage.getItem('token'))
+    //  console.log( await AsyncStorage.getItem('token'))
 
       // window.localStorage.setItem(TOKEN, res.data.token);
       //localStorage.getItem('token');

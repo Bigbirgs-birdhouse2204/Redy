@@ -6,6 +6,7 @@ import axios from "axios";
 import CustomInput from "../CustomComponents/CustomInput";
 import CustomButton from "../CustomComponents/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authenticate } from "../store";
 
 const SignInScreen = ({ navigation }) => {
@@ -13,7 +14,7 @@ const SignInScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // UseNavigation Hook:
   // const navigation = useNavigation();
@@ -32,31 +33,26 @@ const SignInScreen = ({ navigation }) => {
   };
 
   // store the token then navigate to the app's main screen
-  const storeToken = async (value) => {
-    try {
-      await AsyncStorage.setItem("token", value);
-    } catch (e) {
-      // saving error
-    }
-  };
+
 
   const loginTest = async () => {
     try {
-      let formData = {
-        email,
-        password,
-      };
-      const res = await axios.post(
-        `https://redy-capstone.herokuapp.com/auth/login`,
-        formData
-      );
+      // let formData = {
+      //   email,
+      //   password,
+      // };
 
-      storeToken(res.data.token);
+      dispatch(authenticate(email, password, 'login', navigation))
+      // const res = await axios.post(
+      //   `https://redy-capstone.herokuapp.com/auth/login`,
+      //   formData
+      // );
+      // await AsyncStorage.setItem("token", res.data.token);
 
       console.log(
-        await AsyncStorage.getItem("token").then(navigation.navigate("Home"))
+        // await AsyncStorage.getItem("token").then(navigation.navigate("Home"))
       );
-      return res.data;
+      // return res.data;
     } catch (authError) {
       console.log(authError);
       return authError;
@@ -87,7 +83,7 @@ const SignInScreen = ({ navigation }) => {
         setValue={setPassword}
         secureTextEntry={true}
       />
-      <CustomButton text="Sign In" onPress={storeToken} />
+      <CustomButton text="Sign In" onPress={loginTest} />
       <CustomButton
         text="Forgot Password?"
         onPress={onForgotPasswordPressed}
