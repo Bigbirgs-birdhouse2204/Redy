@@ -42,7 +42,32 @@ const ConfirmReservation = (props) => {
         {
           status: 'Booked',
           partySize: 4,
-          
+          restaurantId: reservation.restaurantId,
+          /* THIS IS HARDCODED WE NEED TO RETRIEVE USERID DOWN THE ROAD */
+        }
+      );
+      changeOccupied();
+    } catch (e) {
+      console.log(e);
+    }
+
+    //   await axios.put(
+    //     `https://redy-capstone.herokuapp.com/api/restaurant/${reservation.restaurantId}/${reservation.id}`,
+    //     {
+    //       isOccupied: true,
+    //     }
+    //   );
+    // } catch (e) {
+    //   console.log(e);
+    // }
+  };
+
+  const changeOccupied = async () => {
+    try {
+      await axios.put(
+        `https://redy-capstone.herokuapp.com/api/table/restaurant/${reservation.restaurantId}/${reservation.id}`,
+        {
+          isOccupied: true,
         }
       );
     } catch (e) {
@@ -61,7 +86,7 @@ const ConfirmReservation = (props) => {
           <Card.Title subtitle="Today - 8:00 PM" />
           <Card.Content>
             {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
-            <Paragraph>Maximum Party Size </Paragraph>
+            <Paragraph>Maximum Party Size: {reservation.seats} </Paragraph>
             <Paragraph>Address:</Paragraph>
           </Card.Content>
           <Card.Cover
@@ -69,8 +94,8 @@ const ConfirmReservation = (props) => {
               uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730',
             }}
           />
+
           <Card.Actions>
-            {/* <Button>Cancel</Button> */}
             <Button onPress={() => makeReservation()}>
               Confirm Reservation
             </Button>

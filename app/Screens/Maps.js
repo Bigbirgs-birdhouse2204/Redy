@@ -69,7 +69,7 @@ export default function Maps() {
     const long = -74.006238;
     var config = {
       method: 'get',
-      url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=1609&type=restaurant&key=AIzaSyC-OSdHQCLsDAV0CgpJIY7DSMRnPxEkGJ0`,
+      url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=1609&type=restaurant&key=AIzaSyDhecy-4yU_XCDnMuwuU2JuJ2CGZwEvlek`,
       headers: {},
     };
     axios(config)
