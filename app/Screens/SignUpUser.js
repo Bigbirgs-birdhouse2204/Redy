@@ -61,7 +61,6 @@ const SignUpUser = () => {
         formData
       );
 
-      storeToken(res.data.token);
 
       // window.localStorage.setItem(TOKEN, res.data.token);
       //localStorage.getItem('token');
