@@ -7,7 +7,7 @@ import axios from "axios";
 import CustomInput from "../CustomComponents/CustomInput";
 import CustomButton from "../CustomComponents/CustomButton";
 
-const SignUpUser = ({ navigation }) => {
+const SignUpBusinessUser = ({ navigation }) => {
   // Local State:
   const [email, setEmail] = useState("");
   const [firstName, setfirstName] = useState("");
@@ -15,7 +15,6 @@ const SignUpUser = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
-  // UseNavigation Hook:
 
   const signUpTest = async () => {
     try {
@@ -53,47 +52,41 @@ const SignUpUser = ({ navigation }) => {
       <CustomInput
         inputField={"Email"}
         value={email}
-        // onChangeText = {text => setEmail(text)}
         setValue={setEmail}
         secureTextEntry={false}
       />
       <CustomInput
         inputField={"First Name"}
         value={firstName}
-        // onChangeText = {text => setEmail(text)}
         setValue={setfirstName}
         secureTextEntry={false}
       />
       <CustomInput
         inputField={"Last Name"}
         value={lastName}
-        // onChangeText = {text => setEmail(text)}
         setValue={setlastName}
         secureTextEntry={false}
       />
       <CustomInput
         inputField={"Phone Number"}
         value={phoneNumber}
-        // onChangeText = {text => setEmail(text)}
         setValue={setphoneNumber}
         secureTextEntry={false}
       />
       <CustomInput
         inputField={"Password"}
         value={password}
-        // onChangeText = {text => setPassword(text)}
         setValue={setPassword}
         secureTextEntry={true}
       />
       <CustomInput
         inputField={"Confirm Password"}
         value={confirmPassword}
-        // onChangeText = {text => setconfirmPassword(text)}
         setValue={setconfirmPassword}
         secureTextEntry={true}
       />
 
-      <CustomButton text="Create User Account" onPress={passwordCheck} />
+      <CustomButton text="Create Business Account" onPress={passwordCheck} />
       <Text style={styles.termsOfUse}>
         By registering, you confirm that you accept our Terms of Use and Privacy
         Policy
@@ -122,4 +115,4 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-export default SignUpUser;
+export default SignUpBusinessUser;

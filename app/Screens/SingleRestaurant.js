@@ -1,3 +1,4 @@
+
 import { StyleSheet, View, ScrollView } from 'react-native';
 import Dialog from 'react-native-dialog';
 import React, { useState, useEffect } from 'react';
@@ -80,6 +81,7 @@ const SingleRestaurant = (props) => {
         ))}
       </ScrollView>
     </PaperProvider>
+
   );
 };
 

@@ -18,10 +18,11 @@ export default function Maps() {
   const [location, setLocation] = React.useState(null);
   const [errorMsg, setErrorMsg] = React.useState(null);
   const [restaurants, setRestaurants] = React.useState([]);
-  const [restaurantPlaceID, setRestaurantPlaceID] = React.useState('');
+  const [restaurantPlaceID, setRestaurantPlaceID] = React.useState("");
   const [visibleState, setVisibleState] = React.useState(false);
   const [dialogInfo, setDialogInfo] = React.useState({});
   const [placeIdArr, setPlaceIdArr] = React.useState([]);
+
   const [selectedRestaurant, setSelectedRestaurant] = React.useState(0);
 
   const redyRestaurantPlaceIds = async () => {
@@ -55,6 +56,7 @@ export default function Maps() {
   };
 
   // console.log(redyRestaurantPlaceIds())
+
   const handleRedirect = () => {
     getTableInfo();
     setVisibleState(false);
@@ -74,7 +76,6 @@ export default function Maps() {
     };
     axios(config)
       .then(function (response) {
-        // console.log(response.data.results);
         setRestaurants(response.data.results);
         JSON.stringify(response.data);
       })
@@ -109,7 +110,7 @@ export default function Maps() {
       let location = await Location.getCurrentPositionAsync({});
 
       setLocation(location);
-      // console.log(location);
+
       latitude = location.coords.latitude;
       longitude = location.coords.longitude;
 
@@ -168,7 +169,7 @@ export default function Maps() {
                       });
                       setRestaurantPlaceID(restaurant.place_id);
                       setVisibleState(true);
-                      console.log(restaurant);
+
                     }}
                   />
                 );
@@ -184,18 +185,22 @@ export default function Maps() {
                     title={restaurant.name}
                     onPress={() => {
                       setDialogInfo({
+
                         title: 'This Restaurant is not on Redy',
                         rating: 'N/A',
                         vicinity: 'N/A',
                         price_level: 'N/A',
                         button1: {
                           label: 'Go Back',
+
                           onPress: () => {
                             setVisibleState(false);
                           },
                         },
                         button2: {
+
                           label: 'Go Back',
+
                           onPress: () => {
                             setVisibleState(false);
 
@@ -204,17 +209,6 @@ export default function Maps() {
                         },
                       });
                       setVisibleState(true);
-                      console.log({
-                        name: restaurant.name,
-                        address: restaurant.vicinity,
-                        ratings: restaurant.rating,
-                        priceLevel: restaurant.price_level,
-                        placeId: restaurant.place_id,
-                        totalUserRatings: restaurant.user_ratings_total,
-                        imgUrl: restaurant.photos[0].photo_reference,
-                        longitude: restaurant.geometry.location.lng,
-                        latitude: restaurant.geometry.location.lat,
-                      });
                     }}
                   />
                 );
