@@ -1,12 +1,12 @@
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const TOKEN = "token";
+const TOKEN = 'token';
 
 /**
  * ACTION TYPES
  */
-const SET_AUTH = "SET_AUTH";
+const SET_AUTH = 'SET_AUTH';
 
 /**
  * ACTION CREATORS
@@ -16,23 +16,29 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 /**
  * THUNK CREATORS
  */
-export const me = (navigation, screenName = "Home") => async (dispatch) => {
-  const token = await AsyncStorage.getItem(TOKEN);
-  if (token) {
-    const res = await axios.get("https://redy-capstone.herokuapp.com/auth/me", {
-      headers: {
-        authorization: token,
-      },
-    });
-    dispatch(setAuth(res.data));
-    navigation.navigate(screenName);
-    // navigation.navigate("Home");
-    return;
-  }
-};
+export const me =
+  (navigation, screenName = 'Home', isOwner = false) =>
+  async (dispatch) => {
+    const token = await AsyncStorage.getItem(TOKEN);
+    if (token) {
+      const res = await axios.get(
+        'https://redy-capstone.herokuapp.com/auth/me',
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      dispatch(setAuth(res.data));
+      navigation.navigate(screenName);
+      // navigation.navigate("Home");
+      return;
+    }
+  };
 
 export const authenticate =
-  (formData, method, navigation, screenName = "Home") => async (dispatch) => {
+  (formData, method, navigation, screenName = 'Home') =>
+  async (dispatch) => {
     // (email, password, method, navigation) => async (dispatch) => {
     try {
       const res = await axios.post(
@@ -41,7 +47,8 @@ export const authenticate =
         // { email, password }
       );
       await AsyncStorage.setItem(TOKEN, res.data.token);
-      dispatch(me(navigation, screenName));
+
+      dispatch(me(navigation, screenName, res.data.isOwner));
     } catch (authError) {
       return dispatch(setAuth({ error: authError }));
     }
@@ -50,7 +57,7 @@ export const authenticate =
 export const logout = (navigation) => async (dispatch) => {
   await AsyncStorage.removeItem(TOKEN);
   await AsyncStorage.clear();
-  navigation.navigate("Sign In");
+  navigation.navigate('Sign In');
   return dispatch(setAuth({}));
 };
 

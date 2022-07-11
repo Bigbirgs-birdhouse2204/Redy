@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../store';
 import CustomButton from '../CustomComponents/CustomButton';
 
-const Home = ({ navigation }) => {
+const ManageBusiness = ({ navigation }) => {
   const dispatch = useDispatch();
 
   const logOutTest = async () => {
@@ -20,20 +20,16 @@ const Home = ({ navigation }) => {
   const onBookNowPressed = () => {
     navigation.navigate('Maps');
   };
-  const onManageBusiness = () => {
-    navigation.navigate('Manage Business');
-  };
 
   return (
     <View>
-      <Text>Home</Text>
-      <CustomButton text="Book Now!" onPress={onBookNowPressed} />
-      <CustomButton text="Manage Businesses" onPress={onManageBusiness} />
+      <Text>ManageBusiness</Text>
+
       <CustomButton text="Sign Out" onPress={logOutTest} />
     </View>
   );
 };
 
-export default Home;
+export default ManageBusiness;
 
 const styles = StyleSheet.create({});
