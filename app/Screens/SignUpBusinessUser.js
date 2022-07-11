@@ -26,7 +26,7 @@ const SignUpBusinessUser = ({ navigation }) => {
         phone: phoneNumber,
       };
       const res = await axios.post(
-        `https://redy-capstone.herokuapp.com/auth/signup`,
+        `https://redy-capstone.herokuapp.com/auth/business/signup`,
         formData
       );
       // return dispatch(setAuth({ error: authError }));
