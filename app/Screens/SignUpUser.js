@@ -24,11 +24,11 @@ const SignUpUser = ({ navigation }) => {
   const signUpTest = async () => {
     try {
       let formData = {
-        firstName,
-        lastName,
-        email,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.toLocaleLowerCase().trim(),
         password,
-        phone: phoneNumber,
+        phone: phoneNumber.trim(),
       };
       // const res = await axios.post(
       //   `https://redy-capstone.herokuapp.com/auth/signup`,

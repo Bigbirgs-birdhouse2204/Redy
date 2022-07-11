@@ -1,6 +1,6 @@
 import { View, Text, Image, StyleSheet, SafeAreaView } from "react-native";
 import React, { useState, useEffect } from "react";
-import { useDispatch, Provider } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -25,7 +25,7 @@ const SignInScreen = ({ navigation }) => {
 
   const loginTest = async () => {
     try {
-      dispatch(authenticate(email, password, "login", navigation));
+      dispatch(authenticate({email: email.trim(), password}, "login", navigation));
     } catch (authError) {
       console.log(authError);
       return authError;

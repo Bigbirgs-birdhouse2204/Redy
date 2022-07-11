@@ -16,7 +16,7 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 /**
  * THUNK CREATORS
  */
-export const me = (navigation, screenName) => async (dispatch) => {
+export const me = (navigation, screenName = "Home") => async (dispatch) => {
   const token = await AsyncStorage.getItem(TOKEN);
   if (token) {
     const res = await axios.get("https://redy-capstone.herokuapp.com/auth/me", {
@@ -32,7 +32,7 @@ export const me = (navigation, screenName) => async (dispatch) => {
 };
 
 export const authenticate =
-  (formData, method, navigation, screenName) => async (dispatch) => {
+  (formData, method, navigation, screenName = "Home") => async (dispatch) => {
     // (email, password, method, navigation) => async (dispatch) => {
     try {
       const res = await axios.post(

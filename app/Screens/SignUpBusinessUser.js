@@ -1,11 +1,13 @@
 import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 import CustomInput from "../CustomComponents/CustomInput";
 import CustomButton from "../CustomComponents/CustomButton";
+import { authenticate } from "../store";
 
 const SignUpBusinessUser = ({ navigation }) => {
   // Local State:
@@ -15,23 +17,28 @@ const SignUpBusinessUser = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setconfirmPassword] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
+  // UseDispaych Hook:
+  const dispatch = useDispatch()
 
   const signUpTest = async () => {
     try {
       let formData = {
-        firstName,
-        lastName,
-        email,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.toLocaleLowerCase().trim(),
         password,
-        phone: phoneNumber,
+        phone: phoneNumber.trim(),
       };
-      const res = await axios.post(
-        `https://redy-capstone.herokuapp.com/auth/business/signup`,
-        formData
-      );
+      // const res = await axios.post(
+      //   `https://redy-capstone.herokuapp.com/auth/business/signup`,
+      //   formData
+      // );
+      dispatch(authenticate(formData, 'business/signup', navigation, "Sign In"))
+
       // return dispatch(setAuth({ error: authError }));
-      navigation.navigate("Sign In");
-      return res.data;
+      // navigation.navigate("Sign In");
+      // return res.data;
+      return;
     } catch (authError) {
       return authError;
     }
