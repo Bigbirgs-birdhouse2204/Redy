@@ -76,7 +76,7 @@ export default function Maps() {
     };
     axios(config)
       .then(function (response) {
-        setRestaurants(response.data.results);
+        setRestaurants(response.data);
         // JSON.stringify(response.data);
       })
       .catch(function (error) {
