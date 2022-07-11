@@ -71,12 +71,12 @@ export default function Maps() {
     const long = -74.006238;
     var config = {
       method: 'get',
-      url: `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${lat}%2C${long}&radius=1609&type=restaurant&key=AIzaSyDhecy-4yU_XCDnMuwuU2JuJ2CGZwEvlek`,
+      url: `https://redy-capstone.herokuapp.com/api/maps`,
       headers: {},
     };
     axios(config)
       .then(function (response) {
-        setRestaurants(response.data.results);
+        setRestaurants(response.data);
         JSON.stringify(response.data);
       })
       .catch(function (error) {
