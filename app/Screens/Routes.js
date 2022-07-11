@@ -17,7 +17,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Sign In" component={SignInScreen} />
+        <Stack.Screen name="Sign In" component={Maps} />
         <Stack.Screen name="Sign Up" component={SignUpScreen} />
         <Stack.Screen name="Sign Up User" component={SignUpUser} />
         <Stack.Screen
