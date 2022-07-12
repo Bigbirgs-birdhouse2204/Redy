@@ -18,9 +18,9 @@ const getRestaurants = (restaurant) => ({ type: GET_RESTAURANTS, restaurant });
  */
 
 
-  export const getOwnerRestaurants = () =>
-  async (dispatch) => {
+  export const getOwnerRestaurants = () => async (dispatch) => {
     const token = await AsyncStorage.getItem(TOKEN);
+    console.log(token)
     if (token) {
       const {data} = await axios.get(
         'https://redy-capstone.herokuapp.com/api/owner/restaurants',
