@@ -32,4 +32,5 @@ const persistor = persistStore(store);
 
 export { store, persistor };
 export * from "./auth";
+export * from "./owner";
 
