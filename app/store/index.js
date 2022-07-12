@@ -7,11 +7,13 @@ import autoMergeLevel2 from "redux-persist/lib/stateReconciler/autoMergeLevel2";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import auth from "./auth";
+import owner from "./owner";
 
 const initialState = {};
 
 const reducers = combineReducers({
   auth,
+  owner,
 });
 
 const persistConfig = {
@@ -30,3 +32,4 @@ const persistor = persistStore(store);
 
 export { store, persistor };
 export * from "./auth";
+

@@ -3,15 +3,14 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { logout } from '../store';
+import { getOwnerRestaurants, logout } from '../store';
 import CustomButton from '../CustomComponents/CustomButton';
 
 const ManageBusiness = ({ navigation }) => {
-  const { auth } = useSelector((state) => {
+  const { owner: restaurant } = useSelector((state) => {
     return state;
   });
   const dispatch = useDispatch();
-
   const logOutTest = async () => {
     try {
       dispatch(logout(navigation));
@@ -27,12 +26,21 @@ const ManageBusiness = ({ navigation }) => {
     navigation.navigate('Add Restaurant');
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    dispatch(getOwnerRestaurants())
+  }, []);
 
   return (
     <View>
       <Text>Manage Businesses</Text>
       <CustomButton text="Add a Restaurant!" onPress={onAddRestaurantPressed} />
+      {
+        !restaurant.length ? <Text>You dont't have Restaurants to manage. Please add a Restaurant </Text> : restaurant.map(
+          (restaurant, i) => <CustomButton key={i} text={`${restaurant.name}`} onPress={logOutTest} />
+        )
+      }
+
+
       <CustomButton text="Sign Out" onPress={logOutTest} />
     </View>
   );

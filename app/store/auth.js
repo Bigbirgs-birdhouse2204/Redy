@@ -36,6 +36,27 @@ export const me =
     }
   };
 
+  export const getOwnerRestaurants =
+  () =>
+  async (dispatch) => {
+    const token = await AsyncStorage.getItem(TOKEN);
+    if (token) {
+      const res = await axios.get(
+        'https://redy-capstone.herokuapp.com/api/owner/restaurants',
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+
+      );
+      dispatch(setAuth({...res.data, }));
+      navigation.navigate(screenName);
+      // navigation.navigate("Home");
+      return;
+    }
+  };
+
 export const authenticate =
   (formData, method, navigation, screenName = 'Home') =>
   async (dispatch) => {
