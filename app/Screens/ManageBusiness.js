@@ -23,33 +23,30 @@ const ManageBusiness = ({ navigation }) => {
     navigation.navigate('Add Restaurant');
   };
 
-  const getRestaurantInfo = async () => {
-    const { data } = await axios.get(
-      'https://redy-capstone.herokuapp.com/api/restaurant'
+  // const getRestaurantInfo = async () => {
+  //   const { data } = await axios.get(
+  //     'https://redy-capstone.herokuapp.com/api/restaurant'
+  //   );
+  //   const restaurantId = data.filter((place) => {
+  //     if (place.name === dialogInfo.title) {
+  //       console.log(place.id);
+  //       return place;
+  //     }
+  //   });
+  //   let selected = restaurantId[0].id;
+
+  //   setSelectedRestaurant(selected);
+
+  //   // data.filter(restaurant => )
+
+  //   console.log('THIS IS RESTAURANT ID', selected);
+  //   // const { data } = await axios.get('/api/table/restaurant/:id');
+  // };
+
+  const handleRedirect = (restaurant) => {
+    navigation.navigate('Edit Restaurant', 
+      restaurant,
     );
-    const restaurantId = data.filter((place) => {
-      if (place.name === dialogInfo.title) {
-        console.log(place.id);
-        return place;
-      }
-    });
-    let selected = restaurantId[0].id;
-
-    setSelectedRestaurant(selected);
-
-    // data.filter(restaurant => )
-
-    console.log('THIS IS RESTAURANT ID', selected);
-    // const { data } = await axios.get('/api/table/restaurant/:id');
-  };
-
-  const handleRedirect = () => {
-    getRestaurantInfo();
-    setVisibleState(false);
-    navigation.navigate('Single Restaurant', {
-      dialogInfo,
-      selectedRestaurant,
-    });
   };
 
   useEffect(() => {
@@ -69,7 +66,7 @@ const ManageBusiness = ({ navigation }) => {
           <CustomButton
             key={i}
             text={`${restaurant.name} - Edit`}
-            onPress={handleRedirect}
+            onPress={ () => handleRedirect(restaurant)}
           />
         ))
       )}

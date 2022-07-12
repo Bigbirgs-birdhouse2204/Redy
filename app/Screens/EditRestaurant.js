@@ -19,14 +19,15 @@ const EditRestaurant = (props) => {
   const [tables, setTables] = useState([]);
   const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
-
+  const {params: restaurant} = props.route
+console.log(`This is the props: `,restaurant)
   useEffect(() => {
-    getTables(props.route.params.selectedRestaurant);
+    getTables(restaurant.id);
   }, []);
 
   const getTables = async (restaurantId) => {
     const { data } = await axios.get(
-      `https://redy-capstone.herokuapp.com/api/owner/restaurant/${restaurantId}`
+      `https://redy-capstone.herokuapp.com/api/table/all/restaurant/${restaurantId}`
     );
     setTables(data);
     console.log('THIS IS TABLE', data);
@@ -52,14 +53,14 @@ const EditRestaurant = (props) => {
         {tables.map((table) => (
           <Card key={table.id}>
             <Card.Title
-              title={props.route.params.dialogInfo.title}
+              title={restaurant.id}
               subtitle="Today - 8:00 PM"
             />
             <Card.Content>
               {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
               <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
               <Paragraph>
-                Address: {props.route.params.dialogInfo.vicinity}
+                Address: {restaurant.id}
               </Paragraph>
             </Card.Content>
             <Card.Cover
@@ -70,7 +71,7 @@ const EditRestaurant = (props) => {
             <Card.Actions>
               {/* <Button>Cancel</Button> */}
               <Button onPress={() => tablePicked(table.id)}>
-                Confirm Reservation
+                Edit Table
               </Button>
             </Card.Actions>
           </Card>
