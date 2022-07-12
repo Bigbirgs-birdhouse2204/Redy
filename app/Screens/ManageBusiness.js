@@ -35,8 +35,8 @@ const ManageBusiness = ({ navigation }) => {
       <Text>Manage Businesses</Text>
       <CustomButton text="Add a Restaurant!" onPress={onAddRestaurantPressed} />
       {
-        !restaurant.length ? <Text>You dont't have Restaurants to manage. Please add a Restaurant </Text> : restaurant.map(
-          (restaurant, i) => <CustomButton key={i} text={`${restaurant.name}`} onPress={logOutTest} />
+        !restaurant.length ? <Text>You don't have Restaurants to manage. Please add a Restaurant </Text> : restaurant.map(
+          (restaurant, i) => <CustomButton key={i} text={`${restaurant.name} - Edit`} onPress={logOutTest} />
         )
       }
 

@@ -12,6 +12,7 @@ import SignUpUser from './SignUpUser';
 import SignUpBusinessUser from './SignUpBusinessUser';
 import ManageBusiness from './ManageBusiness';
 import AddRestaurant from './AddRestaurant';
+import EditRestaurant from './EditRestaurant';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
+        <Stack.Screen name="Single Restaurant" component={EditRestaurant} />
         <Stack.Screen name="Add Restaurant" component={AddRestaurant} />
       </Stack.Navigator>
     </NavigationContainer>
