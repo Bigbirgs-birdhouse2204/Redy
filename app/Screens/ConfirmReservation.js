@@ -1,9 +1,9 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
-import Dialog from 'react-native-dialog';
-import React, { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import CustomButton from '../CustomComponents/CustomButton';
-import axios from 'axios';
+import { StyleSheet, View, ScrollView } from "react-native";
+import Dialog from "react-native-dialog";
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import CustomButton from "../CustomComponents/CustomButton";
+import axios from "axios";
 import {
   Provider as PaperProvider,
   Text,
@@ -12,12 +12,10 @@ import {
   Button,
   Title,
   Paragraph,
-} from 'react-native-paper';
+} from "react-native-paper";
 
 const ConfirmReservation = (props) => {
   const navigation = useNavigation();
-
-  console.log('CONFIRM RES PROPS,', props);
 
   const [reservation, setReservation] = useState([]);
 
@@ -32,7 +30,6 @@ const ConfirmReservation = (props) => {
       `https://redy-capstone.herokuapp.com/api/table/${tableId}`
     );
     setReservation(data);
-    console.log('THIS IS TABLE WE GONNA RESERVE', data);
   };
 
   const makeReservation = async () => {
@@ -40,7 +37,7 @@ const ConfirmReservation = (props) => {
       const { data } = await axios.post(
         `https://redy-capstone.herokuapp.com/api/reservation`,
         {
-          status: 'Booked',
+          status: "Booked",
           partySize: 4,
           restaurantId: reservation.restaurantId,
           /* THIS IS HARDCODED WE NEED TO RETRIEVE USERID DOWN THE ROAD */
@@ -76,7 +73,7 @@ const ConfirmReservation = (props) => {
   };
 
   const backPressed = () => {
-    navigation.navigate('Single Restaurant');
+    navigation.navigate("Single Restaurant");
   };
   return (
     <PaperProvider>
@@ -91,7 +88,7 @@ const ConfirmReservation = (props) => {
           </Card.Content>
           <Card.Cover
             source={{
-              uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730',
+              uri: "https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730",
             }}
           />
 

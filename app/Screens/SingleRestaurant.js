@@ -1,11 +1,11 @@
+import { StyleSheet, View, ScrollView } from "react-native";
+import Dialog from "react-native-dialog";
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import CustomButton from "../CustomComponents/CustomButton";
+import { useDispatch, useSelector } from "react-redux";
 
-import { StyleSheet, View, ScrollView } from 'react-native';
-import Dialog from 'react-native-dialog';
-import React, { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
-import CustomButton from '../CustomComponents/CustomButton';
-
-import axios from 'axios';
+import axios from "axios";
 import {
   Provider as PaperProvider,
   Text,
@@ -14,39 +14,42 @@ import {
   Button,
   Title,
   Paragraph,
-} from 'react-native-paper';
+} from "react-native-paper";
 
 const SingleRestaurant = (props) => {
-  // console.warn(props.route.params.dialogInfo.vicinity)
-  // console.log('THIS IS PROPS', props);
-
   const [tables, setTables] = useState([]);
   const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    getTables(props.route.params.selectedRestaurant);
-  }, []);
+  const {selectedRestaurant} = useSelector((state) => {
+    return state;
+  });
+
 
   const getTables = async (restaurantId) => {
     const { data } = await axios.get(
       `https://redy-capstone.herokuapp.com/api/table/restaurant/${restaurantId}`
     );
     setTables(data);
-    console.log('THIS IS TABLE', data);
   };
+
+  console.log(selectedRestaurant)
+  console.log("THIS IS PROPS OF SELECTED RES", props.route.params.selectedRestaurant)
+  useEffect(() => {
+    getTables(props.route.params.selectedRestaurant);
+  }, []);
 
   const tablePicked = async (tableId) => {
     setTableSelected(tableId);
-    console.log('THIS IS THE TABLE PICKED', tableSelected);
-    navigation.navigate('Confirm Reservation', {
+
+    navigation.navigate("Confirm Reservation", {
       tableSelected,
     });
   };
 
   const backPressed = () => {
     setTables([]);
-    navigation.navigate('Maps');
+    navigation.navigate("Maps");
   };
 
   return (
@@ -68,7 +71,7 @@ const SingleRestaurant = (props) => {
             </Card.Content>
             <Card.Cover
               source={{
-                uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730',
+                uri: "https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730",
               }}
             />
             <Card.Actions>
@@ -81,7 +84,6 @@ const SingleRestaurant = (props) => {
         ))}
       </ScrollView>
     </PaperProvider>
-
   );
 };
 
