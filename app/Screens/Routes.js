@@ -1,15 +1,18 @@
-import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
+import * as React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-import Home from "./Home";
-import Maps from "./Maps";
-import SignInScreen from "./SignInScreen";
-import SignUpScreen from "./SignUpScreen";
-import SingleRestaurant from "./SingleRestaurant";
-import SignUpUser from "./SignUpUser";
-import SignUpBusinessUser from "./SignUpBusinessUser";
+import Home from './Home';
+import Maps from './Maps';
+import SignInScreen from './SignInScreen';
+import SignUpScreen from './SignUpScreen';
+import SingleRestaurant from './SingleRestaurant';
+import SignUpUser from './SignUpUser';
+import SignUpBusinessUser from './SignUpBusinessUser';
+import ManageBusiness from './ManageBusiness';
+import AddRestaurant from './AddRestaurant';
+import EditRestaurant from './EditRestaurant';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +20,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Sign In" component={Maps} />
+        <Stack.Screen name="Sign In" component={SignInScreen} />
+        <Stack.Screen name="Manage Business" component={ManageBusiness} />
+        <Stack.Screen name="Maps" component={Maps} />
         <Stack.Screen name="Sign Up" component={SignUpScreen} />
         <Stack.Screen name="Sign Up User" component={SignUpUser} />
         <Stack.Screen
@@ -30,6 +35,8 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
+        <Stack.Screen name="Single Restaurant" component={EditRestaurant} />
+        <Stack.Screen name="Add Restaurant" component={AddRestaurant} />
       </Stack.Navigator>
     </NavigationContainer>
   );
