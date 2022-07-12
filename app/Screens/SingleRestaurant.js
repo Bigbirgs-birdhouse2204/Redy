@@ -3,6 +3,7 @@ import Dialog from "react-native-dialog";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../CustomComponents/CustomButton";
+import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 import {
@@ -20,6 +21,11 @@ const SingleRestaurant = (props) => {
   const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
 
+  const {selectedRestaurant} = useSelector((state) => {
+    return state;
+  });
+
+
   const getTables = async (restaurantId) => {
     const { data } = await axios.get(
       `https://redy-capstone.herokuapp.com/api/table/restaurant/${restaurantId}`
@@ -27,6 +33,8 @@ const SingleRestaurant = (props) => {
     setTables(data);
   };
 
+  console.log(selectedRestaurant)
+  console.log("THIS IS PROPS OF SELECTED RES", props.route.params.selectedRestaurant)
   useEffect(() => {
     getTables(props.route.params.selectedRestaurant);
   }, []);

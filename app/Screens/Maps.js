@@ -56,8 +56,8 @@ export default function Maps() {
       if (redyRestaurant.placeId === restaurant.place_id) {
         return restaurant;
       }
-      setSelectedRestaurant(selectedRedyRestaurant);
     });
+    setSelectedRestaurant(selectedRedyRestaurant);
   };
 
   const handleRedirect = () => {
