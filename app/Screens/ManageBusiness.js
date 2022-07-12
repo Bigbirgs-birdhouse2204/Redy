@@ -19,27 +19,60 @@ const ManageBusiness = ({ navigation }) => {
     }
   };
 
-  const onBookNowPressed = () => {
-    navigation.navigate('Maps');
-  };
   const onAddRestaurantPressed = () => {
     navigation.navigate('Add Restaurant');
   };
 
+  const getRestaurantInfo = async () => {
+    const { data } = await axios.get(
+      'https://redy-capstone.herokuapp.com/api/restaurant'
+    );
+    const restaurantId = data.filter((place) => {
+      if (place.name === dialogInfo.title) {
+        console.log(place.id);
+        return place;
+      }
+    });
+    let selected = restaurantId[0].id;
+
+    setSelectedRestaurant(selected);
+
+    // data.filter(restaurant => )
+
+    console.log('THIS IS RESTAURANT ID', selected);
+    // const { data } = await axios.get('/api/table/restaurant/:id');
+  };
+
+  const handleRedirect = () => {
+    getRestaurantInfo();
+    setVisibleState(false);
+    navigation.navigate('Single Restaurant', {
+      dialogInfo,
+      selectedRestaurant,
+    });
+  };
+
   useEffect(() => {
-    dispatch(getOwnerRestaurants())
+    dispatch(getOwnerRestaurants());
   }, []);
 
   return (
     <View>
       <Text>Manage Businesses</Text>
       <CustomButton text="Add a Restaurant!" onPress={onAddRestaurantPressed} />
-      {
-        !restaurant.length ? <Text>You don't have Restaurants to manage. Please add a Restaurant </Text> : restaurant.map(
-          (restaurant, i) => <CustomButton key={i} text={`${restaurant.name} - Edit`} onPress={logOutTest} />
-        )
-      }
-
+      {!restaurant.length ? (
+        <Text>
+          You don't have Restaurants to manage. Please add a Restaurant{' '}
+        </Text>
+      ) : (
+        restaurant.map((restaurant, i) => (
+          <CustomButton
+            key={i}
+            text={`${restaurant.name} - Edit`}
+            onPress={handleRedirect}
+          />
+        ))
+      )}
 
       <CustomButton text="Sign Out" onPress={logOutTest} />
     </View>

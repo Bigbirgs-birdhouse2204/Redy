@@ -1,4 +1,3 @@
-
 import { StyleSheet, View, ScrollView } from 'react-native';
 import Dialog from 'react-native-dialog';
 import React, { useState, useEffect } from 'react';
@@ -17,8 +16,6 @@ import {
 } from 'react-native-paper';
 
 const EditRestaurant = (props) => {
-
-
   const [tables, setTables] = useState([]);
   const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
@@ -29,7 +26,7 @@ const EditRestaurant = (props) => {
 
   const getTables = async (restaurantId) => {
     const { data } = await axios.get(
-      `https://redy-capstone.herokuapp.com/api/table/restaurant/${restaurantId}`
+      `https://redy-capstone.herokuapp.com/api/owner/restaurant/${restaurantId}`
     );
     setTables(data);
     console.log('THIS IS TABLE', data);
@@ -80,7 +77,6 @@ const EditRestaurant = (props) => {
         ))}
       </ScrollView>
     </PaperProvider>
-
   );
 };
 
