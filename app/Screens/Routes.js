@@ -35,7 +35,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
-        <Stack.Screen name="Single Restaurant" component={EditRestaurant} />
+        <Stack.Screen name="Edit Restaurant" component={EditRestaurant} />
         <Stack.Screen name="Add Restaurant" component={AddRestaurant} />
       </Stack.Navigator>
     </NavigationContainer>
