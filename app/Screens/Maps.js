@@ -9,41 +9,32 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllNearbyRestaurants } from "../store/googleRestaurant";
+import {
+  fetchAllRedyRestaurants,
+  fetchSingleRedyRestaurant,
+} from "../store/redyRestaurant";
 
 export default function Maps() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const { googleRestaurant } = useSelector((state) => {
-    return state;
+  const googleRestaurant = useSelector((state) => {
+    return state.googleRestaurant;
   });
 
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
+  const redyRestaurant = useSelector((state) => {
+    return state.redyRestaurant;
+  });
+
   const [restaurantPlaceID, setRestaurantPlaceID] = useState("");
   const [visibleState, setVisibleState] = useState(false);
   const [dialogInfo, setDialogInfo] = useState({});
-  const [placeIdArr, setPlaceIdArr] = useState([]);
   const [selectedRestaurant, setSelectedRestaurant] = useState(0);
 
   useEffect(() => {
-    //hard coded temporarily to mock current location to downtown manhatten
-    // const lat = 40.714184;
-    // const long = -74.006238;
-    // setLocation(Location.getCurrentPositionAsync({}));
-    console.log("thisisgoogleRestaurant", googleRestaurant);
-    dispatch(fetchAllNearbyRestaurants(lat, long));
+    dispatch(fetchAllNearbyRestaurants());
+    dispatch(fetchAllRedyRestaurants());
   }, []);
-
-  // const redyRestaurantPlaceIds = async () => {
-  //   const { data } = await axios.get(
-  //     "https://redy-capstone.herokuapp.com/api/restaurant"
-  //   );
-  //   const Idarr = data.map((place) => place.placeId);
-  //   setPlaceIdArr(Idarr);
-  //   // console.log('THIS IS DATA', Idarr);
-  //   //  return data.map(place => place.placeId)
-  // };
 
   // const getTableInfo = async () => {
   //   const { data } = await axios.get(
@@ -60,11 +51,18 @@ export default function Maps() {
   //   setSelectedRestaurant(selected);
   // };
 
+  const handleFetchSingleRedyRestaurant = (restaurant) => {
+    const selectedRedyRestaurant = redyRestaurant.filter((redyRestaurant) => {
+      if (redyRestaurant.placeId === restaurant.place_id) {
+        return restaurant;
+      }
+      setSelectedRestaurant(selectedRedyRestaurant);
+    });
+  };
+
   const handleRedirect = () => {
-    getTableInfo();
     setVisibleState(false);
     navigation.navigate("Single Restaurant", {
-      dialogInfo,
       selectedRestaurant,
     });
   };
@@ -97,7 +95,11 @@ export default function Maps() {
         {!googleRestaurant.length
           ? null
           : googleRestaurant.map((restaurant, index) => {
-              if (placeIdArr.includes(restaurant.place_id)) {
+              if (
+                redyRestaurant
+                  .map((place) => place.placeId)
+                  .includes(restaurant.place_id)
+              ) {
                 return (
                   <Marker
                     key={index}
@@ -108,23 +110,12 @@ export default function Maps() {
                     pinColor="green"
                     title={restaurant.name}
                     onPress={() => {
+                      handleFetchSingleRedyRestaurant(restaurant);
                       setDialogInfo({
                         title: restaurant.name,
                         rating: restaurant.rating,
                         vicinity: restaurant.vicinity,
                         price_level: restaurant.price_level,
-                        // button1: {
-                        //   label: "Go Back",
-                        // onPress: () => {
-                        //   setVisibleState(false);
-                        //   },
-                        // },
-                        // button2: {
-                        //   label: "Reserve Now",
-                        // onPress: () => {
-                        //   handleRedirect();
-                        //   },
-                        // },
                       });
                       setRestaurantPlaceID(restaurant.place_id);
                       setVisibleState(true);
@@ -187,10 +178,14 @@ export default function Maps() {
             label="Go Back"
             onPress={() => setVisibleState(false)}
           />
-          {placeIdArr.includes(restaurantPlaceID) ? (
+          {redyRestaurant
+            .map((place) => place.placeId)
+            .includes(restaurantPlaceID) ? (
             <Dialog.Button
               label="Reserve Now"
-              onPress={() => handleRedirect()}
+              onPress={() => {
+                handleRedirect();
+              }}
             />
           ) : null}
         </Dialog.Container>
