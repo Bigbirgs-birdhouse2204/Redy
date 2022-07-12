@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { logout } from '../store';
 import CustomButton from '../CustomComponents/CustomButton';
 
-const ManageBusiness = ({ navigation }) => {
+const AddRestaurant = ({ navigation }) => {
   const { auth } = useSelector((state) => {
     return state;
   });
@@ -24,7 +24,7 @@ const ManageBusiness = ({ navigation }) => {
     navigation.navigate('Maps');
   };
   const onAddRestaurantPressed = () => {
-    navigation.navigate('Add Restaurant');
+    navigation.navigate('Maps');
   };
 
   useEffect(() => {}, []);
@@ -38,6 +38,6 @@ const ManageBusiness = ({ navigation }) => {
   );
 };
 
-export default ManageBusiness;
+export default AddRestaurant;
 
 const styles = StyleSheet.create({});
