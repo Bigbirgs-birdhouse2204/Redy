@@ -29,7 +29,7 @@ export const me =
           },
         }
       );
-      dispatch(setAuth(res.data));
+      dispatch(setAuth({...res.data, isOwner}));
       navigation.navigate(screenName);
       // navigation.navigate("Home");
       return;
