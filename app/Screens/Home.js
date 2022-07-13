@@ -27,13 +27,22 @@ const Home = ({ navigation }) => {
     navigation.navigate('Manage Business');
   };
 
+  const onManageReservations = () => {
+    navigation.navigate('See Reservations');
+  };
+
   return (
     <View>
       <Text>Home</Text>
       <CustomButton text="Book Now!" onPress={onBookNowPressed} />
       {
         !auth.isOwner ? null :
-        <CustomButton text="Manage Businesses" onPress={onManageBusiness} />
+<View>
+
+          <CustomButton text="Manage Businesses" onPress={onManageBusiness} />
+          <CustomButton text="See Reservations" onPress={onManageReservations} />
+</View>
+
 
       }
       <CustomButton text="Sign Out" onPress={logOutTest} />

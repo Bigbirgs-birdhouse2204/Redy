@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getOwnerRestaurants, logout } from '../store';
 import CustomButton from '../CustomComponents/CustomButton';
 
-const ManageBusiness = ({ navigation }) => {
+const BusinessReservations = ({ navigation }) => {
   const { owner: restaurant } = useSelector((state) => {
     return state;
   });
@@ -17,10 +17,6 @@ const ManageBusiness = ({ navigation }) => {
     } catch (err) {
       console.log(err);
     }
-  };
-
-  const onAddRestaurantPressed = () => {
-    navigation.navigate('Add Restaurant');
   };
 
   // const getRestaurantInfo = async () => {
@@ -44,7 +40,7 @@ const ManageBusiness = ({ navigation }) => {
   // };
 
   const handleRedirect = (restaurant) => {
-    navigation.navigate('Edit Restaurant',
+    navigation.navigate('Single Reservation Business',
       restaurant,
     );
   };
@@ -55,8 +51,7 @@ const ManageBusiness = ({ navigation }) => {
 
   return (
     <View>
-      <Text>Manage Businesses</Text>
-      <CustomButton text="Add a Restaurant!" onPress={onAddRestaurantPressed} />
+      <Text>Reservations</Text>
       {!restaurant.length ? (
         <Text>
           You don't have Restaurants to manage. Please add a Restaurant{' '}
@@ -76,6 +71,6 @@ const ManageBusiness = ({ navigation }) => {
   );
 };
 
-export default ManageBusiness;
+export default BusinessReservations;
 
 const styles = StyleSheet.create({});

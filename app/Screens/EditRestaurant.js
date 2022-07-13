@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, TextInput } from 'react-native';
 import Dialog from 'react-native-dialog';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -18,20 +18,21 @@ import CustomInput from '../CustomComponents/CustomInput';
 
 const EditRestaurant = (props) => {
   const [tables, setTables] = useState([]);
+  const [seats, setSeats] = useState({});
   const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
 
   const { params: restaurant } = props.route;
   console.log(`This is the props: `, restaurant);
-  useEffect(() => {
-    getTables(restaurant.id);
-  }, []);
 
   const getTables = async (restaurantId) => {
     const { data } = await axios.get(
       `https://redy-capstone.herokuapp.com/api/table/all/restaurant/${restaurantId}`
-    );
-    setTables(data);
+      );
+      setTables(data);
+      // const seatsObj = data.map(d => {return  { [d.id] : {seats: d.seats, isOccupied: d.isOccupied} }} )
+
+      setSeats
     console.log('THIS IS TABLE', data);
   };
 
@@ -48,6 +49,9 @@ const EditRestaurant = (props) => {
     navigation.navigate('Maps');
   };
 
+  useEffect(() => {
+    getTables(restaurant.id);
+  }, []);
   return (
     <PaperProvider>
       <ScrollView>
@@ -57,8 +61,19 @@ const EditRestaurant = (props) => {
             <Card.Title title={restaurant.name} subtitle="Today - 8:00 PM" />
             <Card.Content>
               {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
-              <Paragraph>Maximum Party Size:{table.seats}</Paragraph>
-              <Paragraph>Is this Occupied?: {`${table.isOccupied}`}</Paragraph>
+              <Paragraph>Maximum Party Size: <TextInput
+              onChangeText={(text) => setTables( prevState => {
+                let newArr = [...prevState ]
+                newArr[newArr.findIndex(el => el.id == table.id)].seats = text
+                return newArr
+              })}
+              value={table.seats}
+            />
+            </Paragraph>
+              <Paragraph>Is this Occupied?: <TextInput
+              onChangeText={(text) => setTables(text)}
+              value={`${table.seats}`}
+            /> {`${table.isOccupied}`}</Paragraph>
             </Card.Content>
 
             <Card.Actions>
