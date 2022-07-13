@@ -54,11 +54,11 @@ const EditRestaurant = (props) => {
         <CustomButton text="Back" onPress={backPressed} />
         {tables.map((table) => (
           <Card key={table.id}>
-            <Card.Title title={restaurant.id} subtitle="Today - 8:00 PM" />
+            <Card.Title title={restaurant.name} subtitle="Today - 8:00 PM" />
             <Card.Content>
               {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
               <Paragraph>Maximum Party Size:{table.seats}</Paragraph>
-              <Paragraph>Address: {restaurant.id}</Paragraph>
+              <Paragraph>Is this Occupied?: {`${table.isOccupied}`}</Paragraph>
             </Card.Content>
 
             <Card.Actions>
