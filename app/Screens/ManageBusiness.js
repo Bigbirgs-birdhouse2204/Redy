@@ -76,11 +76,7 @@ const ManageBusiness = ({ navigation }) => {
           Manage Businesses
         </Text>
         <View style={styles.buttonContainer}>
-          <CustomButton
-            key={i}
-            text={`${restaurant.name}`}
-            onPress={ () => handleRedirect(restaurant)}
-          />
+
           {!restaurant.length ? (
             <Text>
               You don't have Restaurants to manage. Please add a Restaurant{" "}
@@ -89,8 +85,8 @@ const ManageBusiness = ({ navigation }) => {
             restaurant.map((restaurant, i) => (
               <CustomButton
                 key={i}
-                text={`${restaurant.name} - Edit`}
-                onPress={handleRedirect}
+                text={`${restaurant.name}`}
+                onPress={() => handleRedirect(restaurant)}
               />
             ))
           )}

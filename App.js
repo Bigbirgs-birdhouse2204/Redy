@@ -8,7 +8,6 @@ import SignInScreen from "./app/Screens/SignInScreen";
 import SignUpScreen from "./app/Screens/SignUpScreen";
 import SingleRestaurant from "./app/Screens/SingleRestaurant";
 import SignUpUser from "./app/Screens/SignUpUser";
-import ConfirmReservation from "./app/Screens/ConfirmReservation";
 import { Provider } from "react-redux";
 import store from "./app/store";
 import Routes from "./app/Screens/Routes";
