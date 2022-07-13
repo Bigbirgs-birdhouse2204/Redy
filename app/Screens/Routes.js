@@ -21,24 +21,25 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Sign In" component={SignInScreen} />
-        <Stack.Screen name="Manage Business" component={ManageBusiness} />
-        <Stack.Screen name="Maps" component={Maps} />
-        <Stack.Screen name="Sign Up" component={SignUpScreen} />
-        <Stack.Screen name="Sign Up User" component={SignUpUser} />
+        <Stack.Screen name="Sign In" component={SignInScreen}  options={{ headerShown: false }}/>
+        <Stack.Screen name="Manage Business" component={ManageBusiness}  options={{ headerShown: false }}/>
+        <Stack.Screen name="Maps" component={Maps}  options={{ headerShown: false }}/>
+        <Stack.Screen name="Sign Up" component={SignUpScreen}  options={{ headerShown: false }}/>
+        <Stack.Screen name="Sign Up User" component={SignUpUser}  options={{ headerShown: false }}/>
         <Stack.Screen
           name="Sign Up Business User"
           component={SignUpBusinessUser}
+          options={{ headerShown: false }}
         />
         <Stack.Screen
           name="Home"
           component={Home}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
-        <Stack.Screen name="Edit Restaurant" component={EditRestaurant} />
-        <Stack.Screen name="Add Restaurant" component={AddRestaurant} />
-        <Stack.Screen name="Booking Confirmed" component={BookingConfirmed} />
+        <Stack.Screen name="Single Restaurant" component={SingleRestaurant}  options={{ headerShown: false }}/>
+        <Stack.Screen name="Edit Restaurant" component={EditRestaurant}  options={{ headerShown: false }}/>
+        <Stack.Screen name="Add Restaurant" component={AddRestaurant}  options={{ headerShown: false }}/>
+        <Stack.Screen name="Booking Confirmed" component={BookingConfirmed}  options={{ headerShown: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
