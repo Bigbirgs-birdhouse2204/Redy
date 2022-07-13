@@ -48,7 +48,10 @@ const Home = ({ navigation }) => {
         onPress={onBookNowPressed}
       />
       {!auth.isOwner ? null : (
+        <>
         <CustomButton text="Manage Businesses" onPress={onManageBusiness} />
+        <CustomButton text="See Reservations" onPress={onManageReservations} />
+        </>
       )}
       <CustomButton text="Sign Out" onPress={logOutTest} />
     </SafeAreaView>
