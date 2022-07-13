@@ -14,13 +14,15 @@ import {
   Title,
   Paragraph,
 } from 'react-native-paper';
+import CustomInput from '../CustomComponents/CustomInput';
 
 const EditRestaurant = (props) => {
   const [tables, setTables] = useState([]);
   const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
-  const {params: restaurant} = props.route
-console.log(`This is the props: `,restaurant)
+
+  const { params: restaurant } = props.route;
+  console.log(`This is the props: `, restaurant);
   useEffect(() => {
     getTables(restaurant.id);
   }, []);
@@ -34,9 +36,9 @@ console.log(`This is the props: `,restaurant)
   };
 
   const tablePicked = async (tableId) => {
-    setTableSelected(tableId);
+    await setTableSelected(tableId);
     console.log('THIS IS THE TABLE PICKED', tableSelected);
-    navigation.navigate('Confirm Reservation', {
+    navigation.navigate('Edit Table', {
       tableSelected,
     });
   };
@@ -52,26 +54,16 @@ console.log(`This is the props: `,restaurant)
         <CustomButton text="Back" onPress={backPressed} />
         {tables.map((table) => (
           <Card key={table.id}>
-            <Card.Title
-              title={restaurant.id}
-              subtitle="Today - 8:00 PM"
-            />
+            <Card.Title title={restaurant.id} subtitle="Today - 8:00 PM" />
             <Card.Content>
               {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
-              <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
-              <Paragraph>
-                Address: {restaurant.id}
-              </Paragraph>
+              <Paragraph>Maximum Party Size:{table.seats}</Paragraph>
+              <Paragraph>Address: {restaurant.id}</Paragraph>
             </Card.Content>
-            <Card.Cover
-              source={{
-                uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730',
-              }}
-            />
+
             <Card.Actions>
-              {/* <Button>Cancel</Button> */}
               <Button onPress={() => tablePicked(table.id)}>
-                Edit Table
+                Confirm Change
               </Button>
             </Card.Actions>
           </Card>

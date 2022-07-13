@@ -13,6 +13,7 @@ import SignUpBusinessUser from './SignUpBusinessUser';
 import ManageBusiness from './ManageBusiness';
 import AddRestaurant from './AddRestaurant';
 import EditRestaurant from './EditRestaurant';
+import EditTable from './EditTable';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,8 @@ export default function App() {
         />
         <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
         <Stack.Screen name="Edit Restaurant" component={EditRestaurant} />
+        <Stack.Screen name="Edit Table" component={EditTable} />
+
         <Stack.Screen name="Add Restaurant" component={AddRestaurant} />
       </Stack.Navigator>
     </NavigationContainer>
