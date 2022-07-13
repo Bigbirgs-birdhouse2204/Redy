@@ -10,7 +10,6 @@ import SingleRestaurant from "./app/Screens/SingleRestaurant";
 import SignUpUser from "./app/Screens/SignUpUser";
 import ConfirmReservation from "./app/Screens/ConfirmReservation";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 import store from "./app/store";
 import Routes from "./app/Screens/Routes";
 
