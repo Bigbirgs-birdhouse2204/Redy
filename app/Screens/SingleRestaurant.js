@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
 import Dialog from "react-native-dialog";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -16,7 +16,6 @@ import {
 } from "react-native-paper";
 
 import { fetchAllTables } from "../store/tables";
-import store from "../store";
 import { editTable } from "../store/tables";
 import { createReservation } from "../store/reservation";
 
@@ -43,45 +42,53 @@ const SingleRestaurant = (props) => {
   console.log('THIS IS USER', user)
 
 
+
   useEffect(() => {
-    dispatch(fetchAllTables(selectedRestaurant.id))
+    dispatch(fetchAllTables(selectedRestaurant.id));
   }, []);
 
   return (
     <PaperProvider>
-      <ScrollView>
-        {/* <CustomButton text="Back" onPress={backPressed} /> */}
-        <Card.Title
-              title={selectedRestaurant.name}
-            />
-        {tables.map((table) => (
-          <Card key={table.id}>
-
-            <Card.Content>
-
-              <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
-              <Paragraph>
-                Address: {selectedRestaurant.address}
-              </Paragraph>
-            </Card.Content>
-            <Card.Cover
-              source={{
-                uri: "https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730",
-              }}
-            />
-            <Card.Actions>
-              {/* <Button>Cancel</Button> */}
-              <Button onPress={() => handleReservation(table)}>
-                Confirm Reservation
-              </Button>
-            </Card.Actions>
-          </Card>
-        ))}
-      </ScrollView>
+      <SafeAreaView>
+        <ScrollView>
+          {/* <CustomButton text="Back" onPress={backPressed} /> */}
+        <Text style={styles.title}>{selectedRestaurant.name}</Text>
+          {/* <Card.Title
+            title={selectedRestaurant.name}
+            titleVariant='titleLarge'
+            style={{ alignContent: "center" }}
+          /> */}
+          {tables.map((table) => (
+            <Card key={table.id} style = {{top: 15}}>
+              <Card.Content>
+                <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
+                <Paragraph>Address: {selectedRestaurant.address}</Paragraph>
+              </Card.Content>
+              <Card.Cover
+                source={{
+                  uri: "https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730",
+                }}
+              />
+              <Card.Actions>
+                {/* <Button>Cancel</Button> */}
+                <Button onPress={() => handleReservation(table)}>
+                  Confirm Reservation
+                </Button>
+              </Card.Actions>
+            </Card>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
     </PaperProvider>
   );
 };
 
 export default SingleRestaurant;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  title: {
+    fontSize: 40,
+    textAlign: 'center',
+    fontFamily: 'Times New Roman',
+  }
+});
