@@ -1,4 +1,4 @@
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, TextInput } from 'react-native';
 import Dialog from 'react-native-dialog';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -14,28 +14,32 @@ import {
   Title,
   Paragraph,
 } from 'react-native-paper';
+import CustomInput from '../CustomComponents/CustomInput';
 
 const EditRestaurant = (props) => {
   const [tables, setTables] = useState([]);
+  const [seats, setSeats] = useState({});
   const [tableSelected, setTableSelected] = useState([]);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    getTables(props.route.params.selectedRestaurant);
-  }, []);
+  const { params: restaurant } = props.route;
+  console.log(`This is the props: `, restaurant);
 
   const getTables = async (restaurantId) => {
     const { data } = await axios.get(
-      `https://redy-capstone.herokuapp.com/api/owner/restaurant/${restaurantId}`
-    );
-    setTables(data);
+      `https://redy-capstone.herokuapp.com/api/table/all/restaurant/${restaurantId}`
+      );
+      setTables(data);
+      // const seatsObj = data.map(d => {return  { [d.id] : {seats: d.seats, isOccupied: d.isOccupied} }} )
+
+      setSeats
     console.log('THIS IS TABLE', data);
   };
 
   const tablePicked = async (tableId) => {
-    setTableSelected(tableId);
+    await setTableSelected(tableId);
     console.log('THIS IS THE TABLE PICKED', tableSelected);
-    navigation.navigate('Confirm Reservation', {
+    navigation.navigate('Edit Table', {
       tableSelected,
     });
   };
@@ -45,32 +49,36 @@ const EditRestaurant = (props) => {
     navigation.navigate('Maps');
   };
 
+  useEffect(() => {
+    getTables(restaurant.id);
+  }, []);
   return (
     <PaperProvider>
       <ScrollView>
         <CustomButton text="Back" onPress={backPressed} />
         {tables.map((table) => (
           <Card key={table.id}>
-            <Card.Title
-              title={props.route.params.dialogInfo.title}
-              subtitle="Today - 8:00 PM"
-            />
+            <Card.Title title={restaurant.name} subtitle="Today - 8:00 PM" />
             <Card.Content>
               {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
-              <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
-              <Paragraph>
-                Address: {props.route.params.dialogInfo.vicinity}
-              </Paragraph>
-            </Card.Content>
-            <Card.Cover
-              source={{
-                uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730',
-              }}
+              <Paragraph>Maximum Party Size: <TextInput
+              onChangeText={(text) => setTables( prevState => {
+                let newArr = [...prevState ]
+                newArr[newArr.findIndex(el => el.id == table.id)].seats = text
+                return newArr
+              })}
+              value={table.seats}
             />
+            </Paragraph>
+              <Paragraph>Is this Occupied?: <TextInput
+              onChangeText={(text) => setTables(text)}
+              value={`${table.seats}`}
+            /> {`${table.isOccupied}`}</Paragraph>
+            </Card.Content>
+
             <Card.Actions>
-              {/* <Button>Cancel</Button> */}
               <Button onPress={() => tablePicked(table.id)}>
-                Confirm Reservation
+                Confirm Change
               </Button>
             </Card.Actions>
           </Card>

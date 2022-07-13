@@ -3,21 +3,25 @@ import { StyleSheet, Text, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 
-import Home from "./Home";
-import Maps from "./Maps";
-import SignInScreen from "./SignInScreen";
-import SignUpScreen from "./SignUpScreen";
-import SingleRestaurant from "./SingleRestaurant";
-import SignUpUser from "./SignUpUser";
-import SignUpBusinessUser from "./SignUpBusinessUser";
-import ManageBusiness from "./ManageBusiness";
-import AddRestaurant from "./AddRestaurant";
-import EditRestaurant from "./EditRestaurant";
-import BookingConfirmed from "./BookingConfirmed";
+import Home from './Home';
+import Maps from './Maps';
+import SignInScreen from './SignInScreen';
+import SignUpScreen from './SignUpScreen';
+import SingleRestaurant from './SingleRestaurant';
+import SignUpUser from './SignUpUser';
+import SignUpBusinessUser from './SignUpBusinessUser';
+import ManageBusiness from './ManageBusiness';
+import AddRestaurant from './AddRestaurant';
+import EditRestaurant from './EditRestaurant';
+import EditTable from './EditTable';
+import BusinessReservations from './BusinessReservations';
+import SingleReservationBusiness from './SingleReservationBusiness';
+import BookingConfirmed from './BookingConfirmed';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -31,6 +35,8 @@ export default function App() {
           component={ManageBusiness}
           options={{ headerShown: false }}
         />
+         <Stack.Screen name="See Reservations" component={BusinessReservations} options={{ headerShown: false }} />
+        <Stack.Screen name="Single Reservation Business" component={SingleReservationBusiness} options={{ headerShown: false }} />
         <Stack.Screen name="Maps" component={Maps} />
         <Stack.Screen
           name="Sign Up"
@@ -72,6 +78,7 @@ export default function App() {
           component={BookingConfirmed}
           options={{ headerShown: false }}
         />
+        <Stack.Screen name="Edit Table" component={EditTable} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

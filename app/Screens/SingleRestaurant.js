@@ -33,17 +33,15 @@ const SingleRestaurant = (props) => {
   });
 
   const handleReservation = (table) => {
-    dispatch(editTable(selectedRestaurant.id, table.id));
-    dispatch(
-      createReservation({
-        status: "Booked",
-        partySize: table.seats,
-        restaurantId: selectedRestaurant.id,
-        userId: user.id,
-      })
-    );
-    navigation.navigate("Booking Confirmed", { selectedRestaurant, table });
-  };
+
+    dispatch(editTable(selectedRestaurant.id, table.id))
+    dispatch(createReservation({status: "Booked", partySize: table.seats, restaurantId: selectedRestaurant.id, userId: user.id, diningTableId: table.id}))
+    navigation.navigate('Booking Confirmed', {selectedRestaurant, table})
+
+  }
+  console.log('THIS IS USER', user)
+
+
 
   useEffect(() => {
     dispatch(fetchAllTables(selectedRestaurant.id));

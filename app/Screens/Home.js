@@ -34,6 +34,10 @@ const Home = ({ navigation }) => {
     navigation.navigate("Manage Business");
   };
 
+  const onManageReservations = () => {
+    navigation.navigate('See Reservations');
+  };
+
   return (
     <SafeAreaView style={styles.homeContainer}>
       <Image style={styles.logo} source={require("../assets/Redy.png")} />
