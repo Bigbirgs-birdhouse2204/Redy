@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Image,
+  Button,
+} from "react-native";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -30,13 +37,14 @@ const Home = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.homeContainer}>
       <Image style={styles.logo} source={require("../assets/Redy.png")} />
+
       <CustomButton
-        style={{ top: 20 }}
         text="Book Now!"
+        style={styles.button}
         onPress={onBookNowPressed}
       />
       {!auth.isOwner ? null : (
-        <CustomButton  style={{ top: 20 }} text="Manage Businesses" onPress={onManageBusiness} />
+        <CustomButton text="Manage Businesses" onPress={onManageBusiness} />
       )}
       <CustomButton text="Sign Out" onPress={logOutTest} />
     </SafeAreaView>
@@ -58,9 +66,5 @@ const styles = StyleSheet.create({
     height: 200,
     position: "absolute",
     top: 100,
-  },
-  buttonContainer: {
-    // flex: 1,
-    // justifyContent: 'space-evenly'
   },
 });
