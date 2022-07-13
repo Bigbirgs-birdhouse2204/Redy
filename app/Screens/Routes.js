@@ -16,6 +16,7 @@ import EditRestaurant from './EditRestaurant';
 import EditTable from './EditTable';
 import BusinessReservations from './BusinessReservations';
 import SingleReservationBusiness from './SingleReservationBusiness';
+import BookingConfirmed from './BookingConfirmed';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ export default function App() {
         <Stack.Screen name="Edit Table" component={EditTable} />
 
         <Stack.Screen name="Add Restaurant" component={AddRestaurant} />
+        <Stack.Screen name="Booking Confirmed" component={BookingConfirmed} />
       </Stack.Navigator>
     </NavigationContainer>
   );
