@@ -53,7 +53,7 @@ export default function Maps() {
 
   const handleFetchSingleRedyRestaurant = (restaurant) => {
     const selectedRedyRestaurant = redyRestaurant.filter((redyRestaurant) => {
-      if (redyRestaurant.placeId === restaurant.place_id) {
+      if (redyRestaurant.placeId === restaurant.placeId) {
         return restaurant;
       }
     });

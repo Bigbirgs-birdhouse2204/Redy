@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../CustomComponents/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
-
 import axios from "axios";
 import {
   Provider as PaperProvider,
@@ -16,57 +15,53 @@ import {
   Paragraph,
 } from "react-native-paper";
 
-const SingleRestaurant = (props) => {
-  const [tables, setTables] = useState([]);
-  const [tableSelected, setTableSelected] = useState([]);
-  const navigation = useNavigation();
+import { fetchAllTables } from "../store/tables";
+import store from "../store";
+import { editTable } from "../store/tables";
+import { createReservation } from "../store/reservation";
 
-  const {selectedRestaurant} = useSelector((state) => {
-    return state;
+const SingleRestaurant = (props) => {
+  const selectedRestaurant = props.route.params.selectedRestaurant[0];
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const tables = useSelector((state) => {
+    return state.tables;
   });
 
+  const user = useSelector((state) => {
+    return state.auth;
+  });
 
-  const getTables = async (restaurantId) => {
-    const { data } = await axios.get(
-      `https://redy-capstone.herokuapp.com/api/table/restaurant/${restaurantId}`
-    );
-    setTables(data);
-  };
+  const handleReservation = (table) => {
 
-  console.log(selectedRestaurant)
-  console.log("THIS IS PROPS OF SELECTED RES", props.route.params.selectedRestaurant)
+    dispatch(editTable(selectedRestaurant.id, table.id))
+    dispatch(createReservation({status: "Booked", partySize: table.seats, restaurantId: selectedRestaurant.id, userId: user}))
+    navigation.navigate('Booking Confirmed', {selectedRestaurant, table})
+
+  }
+  console.log('THIS IS USER', user)
+
+
   useEffect(() => {
-    getTables(props.route.params.selectedRestaurant);
+    dispatch(fetchAllTables(selectedRestaurant.id))
   }, []);
-
-  const tablePicked = async (tableId) => {
-    setTableSelected(tableId);
-
-    navigation.navigate("Confirm Reservation", {
-      tableSelected,
-    });
-  };
-
-  const backPressed = () => {
-    setTables([]);
-    navigation.navigate("Maps");
-  };
 
   return (
     <PaperProvider>
       <ScrollView>
-        <CustomButton text="Back" onPress={backPressed} />
+        {/* <CustomButton text="Back" onPress={backPressed} /> */}
+        <Card.Title
+              title={selectedRestaurant.name}
+            />
         {tables.map((table) => (
           <Card key={table.id}>
-            <Card.Title
-              title={props.route.params.dialogInfo.title}
-              subtitle="Today - 8:00 PM"
-            />
+
             <Card.Content>
-              {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
+
               <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
               <Paragraph>
-                Address: {props.route.params.dialogInfo.vicinity}
+                Address: {selectedRestaurant.address}
               </Paragraph>
             </Card.Content>
             <Card.Cover
@@ -76,7 +71,7 @@ const SingleRestaurant = (props) => {
             />
             <Card.Actions>
               {/* <Button>Cancel</Button> */}
-              <Button onPress={() => tablePicked(table.id)}>
+              <Button onPress={() => handleReservation(table)}>
                 Confirm Reservation
               </Button>
             </Card.Actions>

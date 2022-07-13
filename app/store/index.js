@@ -7,6 +7,8 @@ import auth from "./auth";
 import owner from "./owner";
 import googleRestaurantReducer from "./googleRestaurant";
 import redyRestaurantReducer from "./redyRestaurant";
+import tablesReducer from "./tables";
+import reservationsReducer from "./reservation";
 
 
 const initialState = {};
@@ -16,11 +18,26 @@ const reducers = combineReducers({
   owner,
   googleRestaurant: googleRestaurantReducer,
   redyRestaurant: redyRestaurantReducer,
+  tables: tablesReducer,
+  reservations: reservationsReducer,
 });
 
 const middleware = composeWithDevTools(
-  applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
-);
+    applyMiddleware(thunkMiddleware,
+      createLogger({
+        predicate: (getState, action) => action.type !== 'SET_NEARBYREDYRESTAURANTS' && action.type !== 'SET_NEARBYRESTAURANTS'
+      })
+    )
+  );
+
+
+// const middleware = composeWithDevTools(
+//   applyMiddleware(thunkMiddleware,
+//     createLogger({
+//     predicate: (getState, action) => action.type !== 'SET_NEARBYRESTAURANTS'
+//   })
+//   )
+// );
 
 const store = createStore(reducers, initialState, middleware);
 
