@@ -22,6 +22,7 @@ const SingleReservationBusiness = (props) => {
   const [seat, setSeat] = useState();
 
   let restaurantId = props.route.params.id;
+  let restaurant = props.route.params
   {
     console.log('YO THIS IS PROPS', props.route.params.tableSelected);
     console.log('SEATS IS THIS MUCH', seat);
@@ -35,6 +36,7 @@ const SingleReservationBusiness = (props) => {
     const { data } = await axios.get(
       `https://redy-capstone.herokuapp.com/api/reservation/business/${rId}`
     );
+    console.log(data)
     setReservation(data);
 
     // console.log('WE EDITING THIS TABLE', Settings);
@@ -53,22 +55,25 @@ const SingleReservationBusiness = (props) => {
     <PaperProvider>
       <ScrollView>
         <Card>
-          <Card.Title subtitle="Please edit this table." />
-          <Card.Content>
-            {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
-            {/* <Paragraph>Maximum Party Size: {Settings.seats} </Paragraph>
+          <Card.Title subtitle={`Reservations for ${restaurant.name}`} />
+            {reservation.map( (reservation, index) =>
+              <Card.Content key={index}>
+            <Title>Table for {`${reservation.user.firstName} ${reservation.user.lastName}`}</Title>
+                        <Paragraph>
+              Table#: {reservation.diningTables[0].id} </Paragraph>
+
             <Paragraph>
-              Is this table occupied?: {`${reservation.isOccupied}`}
-            </Paragraph> */}
-            <TextInput
-              onChangeText={(text) => setSeat(text)}
-              value={`${JSON.stringify(reservation)}`}
-            />
-            <TextInput
-              value={``}
-              onChangeText={setSeat}
-            />
+              Party Size: {reservation.partySize} </Paragraph>
+            <Paragraph>
+              Booking Status: {`${reservation.status}`}
+            </Paragraph>
+            <Paragraph>
+              Created at: {`${reservation.diningTables[0].reservedSeating.createdAt}`}
+            </Paragraph>
           </Card.Content>
+            )
+
+          }
 
           <Card.Actions>
             {/* <Button onPress={() => reservationSettings()}>Update Table</Button> */}

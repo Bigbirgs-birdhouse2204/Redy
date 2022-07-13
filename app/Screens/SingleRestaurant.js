@@ -36,7 +36,7 @@ const SingleRestaurant = (props) => {
   const handleReservation = (table) => {
 
     dispatch(editTable(selectedRestaurant.id, table.id))
-    dispatch(createReservation({status: "Booked", partySize: table.seats, restaurantId: selectedRestaurant.id, userId: user.id}))
+    dispatch(createReservation({status: "Booked", partySize: table.seats, restaurantId: selectedRestaurant.id, userId: user.id, diningTableId: table.id}))
     navigation.navigate('Booking Confirmed', {selectedRestaurant, table})
 
   }
