@@ -1,14 +1,31 @@
-import { StyleSheet, View, Image, ScrollView} from 'react-native'
+import { StyleSheet, View, Image, ScrollView, SafeAreaView} from 'react-native'
 import { useState, useEffect } from 'react'
 import React from 'react'
-import { Button, Text } from 'react-native-paper'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  Provider as PaperProvider,
+  Text,
+  Card,
+  Avatar,
+  Button,
+  Title,
+  Paragraph,
+} from "react-native-paper";
+import CustomButton from '../CustomComponents/CustomButton';
+import { useNavigation } from "@react-navigation/native";
+
+
 
 const BookingConfirmed = (props) => {
-
+  const navigation = useNavigation();
   const selectedRestaurant = props.route.params.selectedRestaurant;
   const table = props.route.params.table;
-  const current = new Date();
-  const date = `${current.getMonth()+1}/${current.getDate()}/${current.getFullYear()}`;
+
+
+
+  const user = useSelector((state) => {
+    return state.auth;
+  });
 
 
   useEffect(() => {
@@ -16,20 +33,30 @@ const BookingConfirmed = (props) => {
 
   })
   return (
-      <ScrollView>
-      <Image
-        source={{
-          uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730'
-        }}
-        style={styles.photo}/>
-        <Image
-          source={{
-            uri: 'https://t3.ftcdn.net/jpg/03/38/92/74/360_F_338927425_ORe15ecNoxoWiV78YSdAQXXoHZzsNY4c.jpg'
-        }}
-        styles = {styles.confirmationlogo}/>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.titlecard}>
         <Text style={styles.title}>{selectedRestaurant.name}</Text>
-        <Text >{date}</Text>
-        </ScrollView>
+        <Card>
+          <Card.Content>
+            <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
+            <Paragraph>
+              Address: {selectedRestaurant.address}
+            </Paragraph>
+          </Card.Content>
+          <Card.Cover
+            source={{
+              uri: "https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730",
+            }}
+          />
+          <Card.Actions>
+            {/* <Button>Cancel</Button> */}
+
+          </Card.Actions>
+          <Paragraph style={styles.thankyoutext}>Thanks for booking {user.firstName}! Please show up within 5 minutes to secure your seating.</Paragraph>
+          </Card>
+          </View>
+          <CustomButton style= {{position: 'absolute', top: 100}} text="Return to main menu" onPress={() => navigation.navigate('Maps')}/>
+        </SafeAreaView>
   )
 }
 
@@ -42,10 +69,23 @@ const styles = StyleSheet.create({
     // position:'absolute',
   },
   title: {
-    fontSize: 20,
-    margin: 20,
+    fontSize: 40,
+    textAlign: 'center',
+    fontFamily: 'Times New Roman',
+    bottom: 50,
   },
   confirmationlogo: {
     height: 500
+  },
+  thankyoutext: {
+    textAlign: 'center'
+  },
+  container: {
+    flex: 1,
+    // justifyContent: 'center',
+    justifyContent: 'space-evenly'
+  },
+  titlecard: {
+
   }
 })
