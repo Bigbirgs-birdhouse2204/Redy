@@ -18,33 +18,33 @@ import {
 import CustomInput from '../CustomComponents/CustomInput';
 
 const SingleReservationBusiness = (props) => {
-  const [updateTable, setUpdateTable] = useState([]);
+  const [reservation, setReservation] = useState([]);
   const [seat, setSeat] = useState();
 
-  let tableSelected = props.route.params.tableSelected;
+  let restaurantId = props.route.params.id;
   {
     console.log('YO THIS IS PROPS', props.route.params.tableSelected);
     console.log('SEATS IS THIS MUCH', seat);
   }
 
   useEffect(() => {
-    getTableSelected(tableSelected);
+    getTableSelected(restaurantId);
   }, []);
 
-  const getTableSelected = async (tableId) => {
+  const getTableSelected = async (rId) => {
     const { data } = await axios.get(
-      `https://redy-capstone.herokuapp.com/api/table/${tableId}`
+      `https://redy-capstone.herokuapp.com/api/reservation/business/${rId}`
     );
-    setUpdateTable(data);
+    setReservation(data);
 
     // console.log('WE EDITING THIS TABLE', Settings);
   };
 
-  // const updateTableSettings = async () => {
+  // const reservationSettings = async () => {
   //   const { data } = await axios.get(
   //     `https://redy-capstone.herokuapp.com/api/table/${tableId}`
   //   );
-  //   setUpdateTable(data);
+  //   setReservation(data);
 
   //   // console.log('WE EDITING THIS TABLE', Settings);
   // };
@@ -58,20 +58,20 @@ const SingleReservationBusiness = (props) => {
             {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
             {/* <Paragraph>Maximum Party Size: {Settings.seats} </Paragraph>
             <Paragraph>
-              Is this table occupied?: {`${updateTable.isOccupied}`}
+              Is this table occupied?: {`${reservation.isOccupied}`}
             </Paragraph> */}
             <TextInput
               onChangeText={(text) => setSeat(text)}
-              value={`${updateTable.seats}`}
+              value={`${JSON.stringify(reservation)}`}
             />
             <TextInput
-              value={`${updateTable.isOccupied}`}
+              value={``}
               onChangeText={setSeat}
             />
           </Card.Content>
 
           <Card.Actions>
-            {/* <Button onPress={() => updateTableSettings()}>Update Table</Button> */}
+            {/* <Button onPress={() => reservationSettings()}>Update Table</Button> */}
           </Card.Actions>
         </Card>
       </ScrollView>
