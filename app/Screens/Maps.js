@@ -98,9 +98,11 @@ export default function Maps() {
           : googleRestaurant.map((restaurant, index) => {
               if (
                 redyRestaurant
-                  .map((place) => place.placeId)
+                  .map((place, index) => place.placeId)
                   .includes(restaurant.placeId)
               ) {
+                if (redyRestaurant[redyRestaurant.findIndex(redy => redy.placeId === googleRestaurant[index].placeId)].diningTables.length > 3){
+
                 return (
                   <Marker
                     key={index}
@@ -123,6 +125,53 @@ export default function Maps() {
                     }}
                   />
                 );
+              } else if (redyRestaurant[redyRestaurant.findIndex(redy => redy.placeId === googleRestaurant[index].placeId)].diningTables.length > 0){
+                return (
+                  <Marker
+                    key={index}
+                    coordinate={{
+                      longitude: restaurant.longitude,
+                      latitude: restaurant.latitude,
+                    }}
+                    pinColor="red"
+                    title={restaurant.name}
+                    onPress={() => {
+                      handleFetchSingleRedyRestaurant(restaurant);
+                      setDialogInfo({
+                        title: restaurant.name,
+                        rating: restaurant.ratings,
+                        vicinity: restaurant.address,
+                        price_level: restaurant.priceLevel,
+                      });
+                      setRestaurantPlaceID(restaurant.placeId);
+                      setVisibleState(true);
+                    }}
+                  />
+                );
+            } else if (redyRestaurant[redyRestaurant.findIndex(redy => redy.placeId === googleRestaurant[index].placeId)].diningTables.length === 0) {
+              return (
+                <Marker
+                  key={index}
+                  coordinate={{
+                    longitude: restaurant.longitude,
+                    latitude: restaurant.latitude,
+                  }}
+                  pinColor="yellow"
+                  title={restaurant.name}
+                  onPress={() => {
+                    handleFetchSingleRedyRestaurant(restaurant);
+                    setDialogInfo({
+                      title: restaurant.name,
+                      rating: restaurant.ratings,
+                      vicinity: restaurant.address,
+                      price_level: restaurant.priceLevel,
+                    });
+                    setRestaurantPlaceID(restaurant.placeId);
+                    setVisibleState(true);
+                  }}
+                />
+              );
+            }
               } else {
                 return (
                   <Marker
@@ -131,7 +180,8 @@ export default function Maps() {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
-                    pinColor="wheat"
+                    pinColor={'blue'}
+
                     title={restaurant.name}
                     onPress={() => {
                       setDialogInfo({

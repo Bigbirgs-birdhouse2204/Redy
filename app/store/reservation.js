@@ -18,6 +18,13 @@ export const createReservation = (reservationObj) => {
   };
 };
 
+export const joinWaitList = (reservationObj) => {
+  return async (dispatch) => {
+    const { data: reservation } = await axios.post('https://redy-capstone.herokuapp.com/api/reservation', reservationObj);
+    dispatch(_createReservation(reservation));
+  };
+};
+
 export const initialState = [];
 
 export default function reservationsReducer(state = initialState, action) {
