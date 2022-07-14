@@ -15,6 +15,13 @@ const SignInScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    return () => navigation.getParent().setOptions({ tabBarStyle: undefined });
+  }, []);
+  //   navigation.getParent().setOptions({ tabBarStyle: { display: 'none' } });
+  //   return () => navigation.getParent().setOptions({ tabBarStyle: undefined });
+  // }, [navigation]);
+
   const onCreateAccountPressed = () => {
     navigation.navigate('Sign Up');
   };

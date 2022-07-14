@@ -35,6 +35,9 @@ export default function Maps() {
   useEffect(() => {
     dispatch(fetchAllNearbyRestaurants());
     dispatch(fetchAllRedyRestaurants());
+
+    // navigation.getParent().setOptions({ tabBarStyle: { display: 'true' } });
+    // return () => navigation.getParent().setOptions({ tabBarStyle: undefined });
   }, []);
 
   // const getTableInfo = async () => {

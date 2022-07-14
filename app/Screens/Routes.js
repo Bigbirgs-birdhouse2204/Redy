@@ -28,6 +28,8 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
+          initialRouteName: 'Home Screen',
+
           labelStyle: { fontSize: 18 },
           activeTintColor: 'red',
           inactiveTintColor: 'black',
@@ -38,17 +40,12 @@ export default function App() {
           component={UserNavigator}
           options={{
             headerShown: false,
-            navigationOptions: () => {
-              return {
-                tabBarVisible: false,
-              };
-            },
           }}
         />
         <Tab.Screen
           name="Map View"
           component={Maps}
-          options={{ headerShown: false, tabBarVisible: false }}
+          options={{ headerShown: false }}
         />
         {/*
         <Stack.Screen
@@ -107,13 +104,14 @@ export default function App() {
 
 const UserNavigator = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Sign In" component={SignInScreen} />
+    <Stack.Navigator initialRouteName="Sign In">
       <Stack.Screen
         name="Home"
         component={Home}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="Sign In" component={SignInScreen} />
+
       <Stack.Screen
         name="Maps"
         component={Maps}
