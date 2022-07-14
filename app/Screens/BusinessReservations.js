@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -50,7 +50,7 @@ const BusinessReservations = ({ navigation }) => {
   }, []);
 
   return (
-    <View>
+    <SafeAreaView>
       <Text>Reservations</Text>
       {!restaurant.length ? (
         <Text>
@@ -65,9 +65,8 @@ const BusinessReservations = ({ navigation }) => {
           />
         ))
       )}
-
       <CustomButton text="Sign Out" onPress={logOutTest} />
-    </View>
+    </SafeAreaView>
   );
 };
 
