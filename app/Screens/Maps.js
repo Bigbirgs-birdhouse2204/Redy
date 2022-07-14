@@ -131,7 +131,7 @@ export default function Maps() {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
-                    pinColor="wheat"
+                    pinColor={'linen'}
                     title={restaurant.name}
                     onPress={() => {
                       setDialogInfo({
