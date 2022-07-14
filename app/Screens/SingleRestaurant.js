@@ -1,10 +1,10 @@
-import { StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
-import Dialog from "react-native-dialog";
-import React, { useState, useEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
-import CustomButton from "../CustomComponents/CustomButton";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { StyleSheet, View, ScrollView, SafeAreaView } from 'react-native';
+import Dialog from 'react-native-dialog';
+import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import CustomButton from '../CustomComponents/CustomButton';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import {
   Provider as PaperProvider,
   Text,
@@ -13,11 +13,11 @@ import {
   Button,
   Title,
   Paragraph,
-} from "react-native-paper";
+} from 'react-native-paper';
 
-import { fetchAllTables } from "../store/tables";
-import { editTable } from "../store/tables";
-import { createReservation } from "../store/reservation";
+import { fetchAllTables } from '../store/tables';
+import { editTable } from '../store/tables';
+import { createReservation } from '../store/reservation';
 
 const SingleRestaurant = (props) => {
   const selectedRestaurant = props.route.params.selectedRestaurant[0];
@@ -33,15 +33,19 @@ const SingleRestaurant = (props) => {
   });
 
   const handleReservation = (table) => {
-
-    dispatch(editTable(selectedRestaurant.id, table.id))
-    dispatch(createReservation({status: "Booked", partySize: table.seats, restaurantId: selectedRestaurant.id, userId: user.id, diningTableId: table.id}))
-    navigation.navigate('Booking Confirmed', {selectedRestaurant, table})
-
-  }
-  console.log('THIS IS USER', user)
-
-
+    dispatch(editTable(selectedRestaurant.id, table.id));
+    dispatch(
+      createReservation({
+        status: 'Booked',
+        partySize: table.seats,
+        restaurantId: selectedRestaurant.id,
+        userId: user.id,
+        diningTableId: table.id,
+      })
+    );
+    navigation.navigate('Booking Confirmed', { selectedRestaurant, table });
+  };
+  console.log('THIS IS USER', user);
 
   useEffect(() => {
     dispatch(fetchAllTables(selectedRestaurant.id));
@@ -52,21 +56,21 @@ const SingleRestaurant = (props) => {
       <SafeAreaView>
         <ScrollView>
           {/* <CustomButton text="Back" onPress={backPressed} /> */}
-        <Text style={styles.title}>{selectedRestaurant.name}</Text>
+          <Text style={styles.title}>{selectedRestaurant.name}</Text>
           {/* <Card.Title
             title={selectedRestaurant.name}
             titleVariant='titleLarge'
             style={{ alignContent: "center" }}
           /> */}
           {tables.map((table) => (
-            <Card key={table.id} style = {{top: 15}}>
+            <Card key={table.id} style={{ top: 15 }}>
               <Card.Content>
                 <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
                 <Paragraph>Address: {selectedRestaurant.address}</Paragraph>
               </Card.Content>
               <Card.Cover
                 source={{
-                  uri: "https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730",
+                  uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730',
                 }}
               />
               <Card.Actions>
@@ -90,5 +94,5 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     fontFamily: 'Times New Roman',
-  }
+  },
 });

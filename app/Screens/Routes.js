@@ -1,7 +1,8 @@
-import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
+import * as React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from './Home';
 import Maps from './Maps';
@@ -17,28 +18,55 @@ import EditTable from './EditTable';
 import BusinessReservations from './BusinessReservations';
 import SingleReservationBusiness from './SingleReservationBusiness';
 import BookingConfirmed from './BookingConfirmed';
+import MyTabs from '../CustomComponents/BottomNav';
 
 const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Sign In"
-          component={SignInScreen}
-          options={{ headerShown: false }}
+      <Tab.Navigator
+        screenOptions={{
+          labelStyle: { fontSize: 18 },
+          activeTintColor: 'red',
+          inactiveTintColor: 'black',
+        }}
+      >
+        <Tab.Screen
+          name="Home Screen"
+          component={UserNavigator}
+          options={{
+            headerShown: false,
+            navigationOptions: () => {
+              return {
+                tabBarVisible: false,
+              };
+            },
+          }}
         />
+        <Tab.Screen
+          name="Map View"
+          component={Maps}
+          options={{ headerShown: false, tabBarVisible: false }}
+        />
+        {/*
         <Stack.Screen
           name="Manage Business"
           component={ManageBusiness}
           options={{ headerShown: false }}
         />
-         <Stack.Screen name="See Reservations" component={BusinessReservations} options={{ headerShown: false }} />
-        <Stack.Screen name="Single Reservation Business" component={SingleReservationBusiness} options={{ headerShown: false }} />
-        <Stack.Screen name="Maps" component={Maps} />
         <Stack.Screen
+          name="See Reservations"
+          component={BusinessReservations}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Single Reservation Business"
+          component={SingleReservationBusiness}
+          options={{ headerShown: false }}
+        /> */}
+        {/* <Stack.Screen
           name="Sign Up"
           component={SignUpScreen}
           options={{ headerShown: false }}
@@ -52,17 +80,10 @@ export default function App() {
           name="Sign Up Business User"
           component={SignUpBusinessUser}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Single Restaurant"
-          component={SingleRestaurant}
-          options={{ headerShown: false }}
-        />
+        /> */}
+
+        {/*
+
         <Stack.Screen
           name="Edit Restaurant"
           component={EditRestaurant}
@@ -73,35 +94,41 @@ export default function App() {
           component={AddRestaurant}
           options={{ headerShown: false }}
         />
+
         <Stack.Screen
-          name="Booking Confirmed"
-          component={BookingConfirmed}
+          name="Edit Table"
+          component={EditTable}
           options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Edit Table" component={EditTable} options={{ headerShown: false }} />
-      </Stack.Navigator>
+        /> */}
+      </Tab.Navigator>
     </NavigationContainer>
   );
 }
 
-// function AppStack () {
-//   return (
-//     <NavigationContainer>
-//       <Stack.Screen name="Home" component={Home} />
-//       <Stack.Screen name="Single Restaurant" component={SingleRestaurant} />
-//     </NavigationContainer>
-//   )
-// }
-
-// function LoginStack () {
-//   <NavigationContainer>
-//     <Stack.Screen name="Sign In" component={SignInScreen} />
-//     <Stack.Screen name="Sign Up" component={SignUpScreen} />
-//   </NavigationContainer>
-// }
-
-// const globalScreenOptions = {
-//   headerStyle: { backgroundColor: colors.secondaryColor },
-//   headerTitleStyle: { color: colors.white },
-//   headerTintColor: colors.white,
-// };
+const UserNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Sign In" component={SignInScreen} />
+      <Stack.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Maps"
+        component={Maps}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Single Restaurant"
+        component={SingleRestaurant}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Booking Confirmed"
+        component={BookingConfirmed}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};

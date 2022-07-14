@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
-import { Marker } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
-import * as Location from "expo-location";
-import axios from "axios";
-import Dialog from "react-native-dialog";
-import { useNavigation } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
-import { Button } from "react-native-paper";
+import React, { useEffect, useState } from 'react';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker } from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import * as Location from 'expo-location';
+import axios from 'axios';
+import Dialog from 'react-native-dialog';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button } from 'react-native-paper';
 
-import { fetchAllNearbyRestaurants } from "../store/googleRestaurant";
+import { fetchAllNearbyRestaurants } from '../store/googleRestaurant';
 import {
   fetchAllRedyRestaurants,
   fetchSingleRedyRestaurant,
-} from "../store/redyRestaurant";
+} from '../store/redyRestaurant';
 
 export default function Maps() {
   const navigation = useNavigation();
@@ -27,7 +27,7 @@ export default function Maps() {
     return state.redyRestaurant;
   });
 
-  const [restaurantPlaceID, setRestaurantPlaceID] = useState("");
+  const [restaurantPlaceID, setRestaurantPlaceID] = useState('');
   const [visibleState, setVisibleState] = useState(false);
   const [dialogInfo, setDialogInfo] = useState({});
   const [selectedRestaurant, setSelectedRestaurant] = useState(0);
@@ -63,20 +63,20 @@ export default function Maps() {
 
   const handleRedirect = () => {
     setVisibleState(false);
-    navigation.navigate("Single Restaurant", {
+    navigation.navigate('Single Restaurant', {
       selectedRestaurant,
     });
   };
 
   const handleConversion = (priceLevel) => {
     if (dialogInfo.price_level == 1) {
-      return "$";
+      return '$';
     } else if (dialogInfo.price_level == 2) {
-      return "$$";
+      return '$$';
     } else if (dialogInfo.price_level == 3) {
-      return "$$$";
+      return '$$$';
     } else {
-      return "";
+      return '';
     }
   };
 
@@ -135,19 +135,19 @@ export default function Maps() {
                     title={restaurant.name}
                     onPress={() => {
                       setDialogInfo({
-                        title: "This Restaurant is not on Redy",
-                        rating: "N/A",
-                        vicinity: "N/A",
-                        price_level: "N/A",
+                        title: 'This Restaurant is not on Redy',
+                        rating: 'N/A',
+                        vicinity: 'N/A',
+                        price_level: 'N/A',
                         button1: {
-                          label: "Go Back",
+                          label: 'Go Back',
 
                           onPress: () => {
                             setVisibleState(false);
                           },
                         },
                         button2: {
-                          label: "Go Back",
+                          label: 'Go Back',
 
                           onPress: () => {
                             setVisibleState(false);
@@ -169,9 +169,9 @@ export default function Maps() {
           <Dialog.Description>
             <Text>
               Address: {dialogInfo.vicinity}
-              {"\n"}
+              {'\n'}
               Rating: {dialogInfo.rating}
-              {"\n"}
+              {'\n'}
               Price Level: {handleConversion(dialogInfo.price_level)}
             </Text>
           </Dialog.Description>
@@ -198,12 +198,12 @@ export default function Maps() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
 });
