@@ -32,31 +32,14 @@ export default function Maps(props) {
   const [visibleState, setVisibleState] = useState(false);
   const [dialogInfo, setDialogInfo] = useState({});
   const [selectedRestaurant, setSelectedRestaurant] = useState(0);
-  const [snackBarVisible, setSnackBarVisible] = useState(false);
-  const [snackbarProps, setSnackbarProps] = useState(false);
 
   const pinColor = 'blue';
 
   useEffect(() => {
     dispatch(fetchAllNearbyRestaurants());
     dispatch(fetchAllRedyRestaurants());
-    if (props.route.params){
-      if (props.route.params.snackbar) {
-        setSnackbarProps(true);
-      props.route.params.timer();
-      // return () => clearTimeout(props.route.params.timer);
-      }
-    }
-  }, []);
 
-  useEffect(() => {
-    if (props.route.params){
-      if (props.route.params.snackbar) {
-      props.route.params.timer();
-      return () => clearTimeout(props.route.params.timer);
-      }
-    }
-  }, [snackbarProps])
+  }, []);
 
   const handleFetchSingleRedyRestaurant = (restaurant) => {
     const selectedRedyRestaurant = redyRestaurant.filter((redyRestaurant) => {
