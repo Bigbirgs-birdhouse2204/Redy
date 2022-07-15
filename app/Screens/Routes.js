@@ -75,7 +75,14 @@ export default function App() {
         />
         <Tab.Screen
           name="Manage Restaurants"
-          component={ManageBusiness}
+          component={OwnerNavigator}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Tab.Screen
+          name="View Reservations"
+          component={ReservationNavigator}
           options={{
             headerShown: false,
           }}
@@ -143,6 +150,50 @@ const UserNavigator = () => {
       <Stack.Screen
         name="Sign Up Business User"
         component={SignUpBusinessUser}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const OwnerNavigator = () => {
+  return (
+    <Stack.Navigator initialRouteName="Sign In">
+      <Stack.Screen
+        name="Manage Business"
+        component={ManageBusiness}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Edit Restaurant"
+        component={EditRestaurant}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Edit Table"
+        component={EditTable}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const ReservationNavigator = () => {
+  return (
+    <Stack.Navigator initialRouteName="Sign In">
+      <Stack.Screen
+        name="See Reservations"
+        component={BusinessReservations}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Single Reservation Business"
+        component={SingleReservationBusiness}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Edit Table"
+        component={EditTable}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
