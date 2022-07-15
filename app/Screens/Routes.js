@@ -21,8 +21,6 @@ import EditTable from './EditTable';
 import BusinessReservations from './BusinessReservations';
 import SingleReservationBusiness from './SingleReservationBusiness';
 import BookingConfirmed from './BookingConfirmed';
-import MyTabs from '../CustomComponents/BottomNav';
-import { useNavigation } from '@react-navigation/native';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -53,11 +51,6 @@ export default function App() {
             headerShown: false,
           }}
         />
-        {/* <Tab.Screen
-          name="Map View"
-          component={Maps}
-          options={{ headerShown: false }}
-        /> */}
       </Tab.Navigator>
     </NavigationContainer>
   ) : !auth.isOwner && auth.id ? (

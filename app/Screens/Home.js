@@ -28,10 +28,7 @@ const Home = ({ navigation }) => {
       console.log(err);
     }
   };
-  // useEffect(() => {
-  //   navigation.getParent().setOptions({ tabBarStyle: { display: 'true' } });
-  //   return () => navigation.getParent().setOptions({ tabBarStyle: undefined });
-  // }, []);
+
   const onBookNowPressed = () => {
     navigation.navigate('Maps');
   };
