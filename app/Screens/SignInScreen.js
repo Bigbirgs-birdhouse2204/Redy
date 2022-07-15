@@ -15,9 +15,9 @@ const SignInScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    return () => navigation.getParent().setOptions({ tabBarStyle: undefined });
-  }, []);
+  // useEffect(() => {
+  //   return () => navigation.getParent().setOptions({ tabBarStyle: undefined });
+  // }, []);
   //   navigation.getParent().setOptions({ tabBarStyle: { display: 'none' } });
   //   return () => navigation.getParent().setOptions({ tabBarStyle: undefined });
   // }, [navigation]);
