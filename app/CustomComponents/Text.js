@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+
 export default {
-  primaryFont: "Times New Roman",
+  primaryFont: Platform.OS ? "Times New Roman" : "serif",
 };
