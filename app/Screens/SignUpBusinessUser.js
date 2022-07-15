@@ -53,6 +53,10 @@ const SignUpBusinessUser = ({ navigation }) => {
     }
   };
 
+  function tempBusinessClosure() {
+     Alert.alert("Sorry, We are currently not accepting new business owners at this time. Please reach out to our sales team for further details");
+     navigation.navigate("Sign In")
+  }
   function passwordCheck() {
     password === confirmPassword
       ? signUpTest()
@@ -103,7 +107,7 @@ const SignUpBusinessUser = ({ navigation }) => {
           secureTextEntry={true}
         />
 
-        <CustomButton text="Create Business Account" onPress={passwordCheck} />
+        <CustomButton text="Create Business Account" onPress={tempBusinessClosure} />
         <Text style={styles.termsOfUse}>
           By registering, you confirm that you accept our Terms of Use and
           Privacy Policy
