@@ -35,6 +35,8 @@ export default function Maps(props) {
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [snackbarProps, setSnackbarProps] = useState(false);
 
+  const pinColor = 'blue';
+
   useEffect(() => {
     dispatch(fetchAllNearbyRestaurants());
     dispatch(fetchAllRedyRestaurants());
@@ -109,7 +111,6 @@ export default function Maps(props) {
 
                 return (
                   <Marker
-                    style = {{width: 20, height: 20}}
                     key={index}
                     coordinate={{
                       longitude: restaurant.longitude,
@@ -130,11 +131,14 @@ export default function Maps(props) {
                       setVisibleState(true);
                     }}
                   >
-                    <Image
+                    {/* <Image
                       source={RedyLogo}
-                      style={{width: 26, height: 28}}
+                      style={{
+                        width: 28,
+                        height: 28,
+                      }}
                       resizeMode="contain"
-  />
+  /> */}
                   </Marker>
                 );
               } else if (redyRestaurant[redyRestaurant.findIndex(redy => redy.placeId === googleRestaurant[index].placeId)].diningTables.length > 0){
@@ -145,7 +149,7 @@ export default function Maps(props) {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
-                    pinColor="red"
+                    pinColor="yellow"
                     title={restaurant.name}
                     onPress={() => {
                       handleFetchSingleRedyRestaurant(restaurant);
@@ -168,7 +172,7 @@ export default function Maps(props) {
                     longitude: restaurant.longitude,
                     latitude: restaurant.latitude,
                   }}
-                  pinColor="yellow"
+                  pinColor="red"
                   title={restaurant.name}
                   onPress={() => {
                     handleFetchSingleRedyRestaurant(restaurant);
@@ -192,7 +196,7 @@ export default function Maps(props) {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
-                    // pinColor={'blue'}
+                    pinColor={pinColor}
 
                     title={restaurant.name}
                     onPress={() => {
@@ -357,9 +361,5 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-  },
-  marker: {
-    height: 20,
-    width: 20
   }
 });

@@ -31,10 +31,10 @@ const SingleRestaurant = (props) => {
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
-  const [snackBarVisible, setSnackBarVisible] = useState(false);
+  const [waitListVisible, setWaitListVisible] = useState(false);
   const [partySize, setPartySize] = useState("0");
-  const onToggleSnackBar = () => setSnackBarVisible(!snackBarVisible);
-  const onDismissSnackBar = () => setSnackBarVisible(false);
+  const onToggleWaitList = () => setWaitListVisible(!waitListVisible);
+  const onDismissWaitList = () => setWaitListVisible(false);
   const tables = useSelector((state) => {
     return state.tables;
   });
@@ -65,6 +65,9 @@ const SingleRestaurant = (props) => {
       setPartySize(parsedQty);
     }
     handleWaitList();
+    setVisible(false);
+
+    onToggleWaitList()
   };
 
   const handleWaitList = () => {
@@ -76,23 +79,17 @@ const SingleRestaurant = (props) => {
         userId: user.id,
       })
     );
-    onToggleSnackBar()
-    navigation.navigate("Maps", {snackbar: onToggleSnackBar(), timer});
   };
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
-   const timer = setTimeout(() => {
-    onDismissSnackBar();
-  }, 10000);
+
 
 
 
   useEffect(() => {
     dispatch(fetchAllTables(selectedRestaurant.id));
-    if(snackBarVisible){
-      timer();
-    }
-      }, [setSnackBarVisible]);
+
+      }, []);
   return (
     <PaperProvider>
       <SafeAreaView>
@@ -125,19 +122,26 @@ const SingleRestaurant = (props) => {
                     </Dialog.Actions>
                   </Dialog.Content>
                 </Dialog>
-                <Snackbar
-                      visible={snackBarVisible}
-                      onDismiss={onDismissSnackBar}
-                      action={{
-                        label: "Undo",
-                        onPress: () => {
-                          // Do something
 
-                        },
-                      }}
-                    >
-                      Hey there! I'm a Snackbar.
-                    </Snackbar>
+
+                <Dialog visible={waitListVisible} onDismiss={hideDialog}>
+                  <Dialog.Title>Joined Successfully </Dialog.Title>
+                  <Dialog.Content>
+                    <Text
+                      // style={styles.input}
+                    >Restaurant will contact you when a table is ready
+                    </Text>
+
+                    <Dialog.Actions>
+                      <Button onPress={ () =>{
+                            onDismissWaitList();
+                            navigation.navigate("Maps");
+                            return;
+                      }}>Ok</Button>
+                    </Dialog.Actions>
+                  </Dialog.Content>
+                </Dialog>
+
               </Portal>
             </>
           ) : (
