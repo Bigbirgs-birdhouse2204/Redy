@@ -1,4 +1,11 @@
-import { View, Text, Image, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Alert,
+  KeyboardAvoidingView,
+} from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -9,7 +16,6 @@ import CustomInput from "../CustomComponents/CustomInput";
 import CustomButton from "../CustomComponents/CustomButton";
 import { authenticate } from "../store";
 
-
 const SignUpUser = ({ navigation }) => {
   // Local State:
   const [email, setEmail] = useState("");
@@ -19,7 +25,7 @@ const SignUpUser = ({ navigation }) => {
   const [confirmPassword, setconfirmPassword] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
   // UseDispaych Hook:
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const signUpTest = async () => {
     try {
@@ -34,7 +40,7 @@ const SignUpUser = ({ navigation }) => {
       //   `https://redy-capstone.herokuapp.com/auth/signup`,
       //   formData
       // );
-      dispatch(authenticate(formData, 'signup', navigation, "Sign In"))
+      dispatch(authenticate(formData, "signup", navigation, "Sign In"));
       // return dispatch(setAuth({ error: authError }));
       // navigation.navigate("Sign In");
       // return res.data;
@@ -54,57 +60,59 @@ const SignUpUser = ({ navigation }) => {
 
   // RENDER THE FOLLOWING:
   return (
-    <View style={styles.formBox}>
-      <Text style={styles.title}>Redy</Text>
-      <CustomInput
-        inputField={"Email"}
-        value={email}
-        // onChangeText = {text => setEmail(text)}
-        setValue={setEmail}
-        secureTextEntry={false}
-      />
-      <CustomInput
-        inputField={"First Name"}
-        value={firstName}
-        // onChangeText = {text => setEmail(text)}
-        setValue={setfirstName}
-        secureTextEntry={false}
-      />
-      <CustomInput
-        inputField={"Last Name"}
-        value={lastName}
-        // onChangeText = {text => setEmail(text)}
-        setValue={setlastName}
-        secureTextEntry={false}
-      />
-      <CustomInput
-        inputField={"Phone Number"}
-        value={phoneNumber}
-        // onChangeText = {text => setEmail(text)}
-        setValue={setphoneNumber}
-        secureTextEntry={false}
-      />
-      <CustomInput
-        inputField={"Password"}
-        value={password}
-        // onChangeText = {text => setPassword(text)}
-        setValue={setPassword}
-        secureTextEntry={true}
-      />
-      <CustomInput
-        inputField={"Confirm Password"}
-        value={confirmPassword}
-        // onChangeText = {text => setconfirmPassword(text)}
-        setValue={setconfirmPassword}
-        secureTextEntry={true}
-      />
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <View style={styles.formBox}>
+        <Text style={styles.title}>Redy</Text>
+        <CustomInput
+          inputField={"Email"}
+          value={email}
+          // onChangeText = {text => setEmail(text)}
+          setValue={setEmail}
+          secureTextEntry={false}
+        />
+        <CustomInput
+          inputField={"First Name"}
+          value={firstName}
+          // onChangeText = {text => setEmail(text)}
+          setValue={setfirstName}
+          secureTextEntry={false}
+        />
+        <CustomInput
+          inputField={"Last Name"}
+          value={lastName}
+          // onChangeText = {text => setEmail(text)}
+          setValue={setlastName}
+          secureTextEntry={false}
+        />
+        <CustomInput
+          inputField={"Phone Number"}
+          value={phoneNumber}
+          // onChangeText = {text => setEmail(text)}
+          setValue={setphoneNumber}
+          secureTextEntry={false}
+        />
+        <CustomInput
+          inputField={"Password"}
+          value={password}
+          // onChangeText = {text => setPassword(text)}
+          setValue={setPassword}
+          secureTextEntry={true}
+        />
+        <CustomInput
+          inputField={"Confirm Password"}
+          value={confirmPassword}
+          // onChangeText = {text => setconfirmPassword(text)}
+          setValue={setconfirmPassword}
+          secureTextEntry={true}
+        />
 
-      <CustomButton text="Create User Account" onPress={passwordCheck} />
-      <Text style={styles.termsOfUse}>
-        By registering, you confirm that you accept our Terms of Use and Privacy
-        Policy
-      </Text>
-    </View>
+        <CustomButton text="Create User Account" onPress={passwordCheck} />
+        <Text style={styles.termsOfUse}>
+          By registering, you confirm that you accept our Terms of Use and
+          Privacy Policy
+        </Text>
+      </View>
+    </KeyboardAvoidingView>
   );
 };
 // STYLES

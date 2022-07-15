@@ -1,26 +1,26 @@
-import 'react-native-gesture-handler';
-import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import "react-native-gesture-handler";
+import * as React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 
-import Home from './Home';
-import Maps from './Maps';
-import SignInScreen from './SignInScreen';
-import SignUpScreen from './SignUpScreen';
-import SingleRestaurant from './SingleRestaurant';
-import SignUpUser from './SignUpUser';
-import SignUpBusinessUser from './SignUpBusinessUser';
-import ManageBusiness from './ManageBusiness';
-import AddRestaurant from './AddRestaurant';
-import EditRestaurant from './EditRestaurant';
-import EditTable from './EditTable';
-import BusinessReservations from './BusinessReservations';
-import SingleReservationBusiness from './SingleReservationBusiness';
-import BookingConfirmed from './BookingConfirmed';
+import Home from "./Home";
+import Maps from "./Maps";
+import SignInScreen from "./SignInScreen";
+import SignUpScreen from "./SignUpScreen";
+import SingleRestaurant from "./SingleRestaurant";
+import SignUpUser from "./SignUpUser";
+import SignUpBusinessUser from "./SignUpBusinessUser";
+import ManageBusiness from "./ManageBusiness";
+import AddRestaurant from "./AddRestaurant";
+import EditRestaurant from "./EditRestaurant";
+import EditTable from "./EditTable";
+import BusinessReservations from "./BusinessReservations";
+import SingleReservationBusiness from "./SingleReservationBusiness";
+import BookingConfirmed from "./BookingConfirmed";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,18 +30,18 @@ export default function App() {
     return state;
   });
   {
-    console.log('YO THIS IS AUTH', auth);
+    console.log("YO THIS IS AUTH", auth);
   }
   //THIS IS THE LAST CONTROL Z
   return !auth.id ? (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          initialRouteName: 'Home Screen',
+          initialRouteName: "Home Screen",
 
           labelStyle: { fontSize: 18 },
-          activeTintColor: 'red',
-          inactiveTintColor: 'black',
+          activeTintColor: "red",
+          inactiveTintColor: "black",
         }}
       >
         <Tab.Screen
@@ -57,11 +57,11 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          initialRouteName: 'Home Screen',
+          initialRouteName: "Home Screen",
 
           labelStyle: { fontSize: 18 },
-          activeTintColor: 'red',
-          inactiveTintColor: 'black',
+          activeTintColor: "red",
+          inactiveTintColor: "black",
         }}
       >
         <Tab.Screen
@@ -83,11 +83,11 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          initialRouteName: 'Home Screen',
+          initialRouteName: "Home Screen",
 
           labelStyle: { fontSize: 18 },
-          activeTintColor: 'red',
-          inactiveTintColor: 'black',
+          activeTintColor: "red",
+          inactiveTintColor: "black",
         }}
       >
         <Tab.Screen
@@ -124,7 +124,11 @@ export default function App() {
 const UserNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Sign In" component={SignInScreen} />
+      <Stack.Screen
+        name="Sign In"
+        component={SignInScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Home"
         component={Home}

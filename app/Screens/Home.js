@@ -5,15 +5,12 @@ import {
   SafeAreaView,
   Image,
   Button,
-} from 'react-native';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+} from "react-native";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import { logout } from '../store';
-import CustomButton from '../CustomComponents/CustomButton';
+import { logout } from "../store";
+import CustomButton from "../CustomComponents/CustomButton";
 
 const Home = ({ navigation }) => {
   const { auth } = useSelector((state) => {
@@ -30,35 +27,36 @@ const Home = ({ navigation }) => {
   };
 
   const onBookNowPressed = () => {
-    navigation.navigate('Maps');
+    navigation.navigate("Maps");
   };
   const onManageBusiness = () => {
-    navigation.navigate('Manage Business');
+    navigation.navigate("Manage Business");
   };
 
   const onManageReservations = () => {
-    navigation.navigate('See Reservations');
+    navigation.navigate("See Reservations");
   };
 
   return (
     <SafeAreaView style={styles.homeContainer}>
-      <Image style={styles.logo} source={require('../assets/Redy.png')} />
-
-      <CustomButton
-        text="Book Now!"
-        style={styles.button}
-        onPress={onBookNowPressed}
-      />
-      {!auth.isOwner ? null : (
-        <>
-          <CustomButton text="Manage Businesses" onPress={onManageBusiness} />
-          <CustomButton
-            text="See Reservations"
-            onPress={onManageReservations}
-          />
-        </>
-      )}
-      <CustomButton text="Sign Out" onPress={logOutTest} />
+      <Image style={styles.logo} source={require("../assets/Redy.png")} />
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          text="Book Now!"
+          style={styles.button}
+          onPress={onBookNowPressed}
+        />
+        {!auth.isOwner ? null : (
+          <>
+            <CustomButton text="Manage Businesses" onPress={onManageBusiness} />
+            <CustomButton
+              text="See Reservations"
+              onPress={onManageReservations}
+            />
+          </>
+        )}
+        <CustomButton text="Sign Out" onPress={logOutTest} />
+      </View>
     </SafeAreaView>
   );
 };
@@ -66,17 +64,26 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    width: "100%",
+    padding: 15,
+    marginVertical: 5,
+    alignItems: "center",
+    position: "absolute",
+    top: 300,
+    borderRadius: 5,
+  },
   homeContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 150,
     paddingHorizontal: 20,
   },
   logo: {
     width: 200,
     height: 200,
-    position: 'absolute',
+    position: "absolute",
     top: 100,
+    marginBottom: 20,
   },
 });
