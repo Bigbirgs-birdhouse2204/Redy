@@ -2,19 +2,20 @@
 import React, { useEffect, useState } from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
 import Dialog from "react-native-dialog";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Snackbar } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { fetchAllNearbyRestaurants } from "../store/googleRestaurant";
 import {
   fetchAllRedyRestaurants,
   fetchSingleRedyRestaurant,
 } from '../store/redyRestaurant';
 
+const RedyLogo = require('../assets/Redy.png')
 export default function Maps(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -33,6 +34,8 @@ export default function Maps(props) {
   const [selectedRestaurant, setSelectedRestaurant] = useState(0);
   const [snackBarVisible, setSnackBarVisible] = useState(false);
   const [snackbarProps, setSnackbarProps] = useState(false);
+
+  const pinColor = 'blue';
 
   useEffect(() => {
     dispatch(fetchAllNearbyRestaurants());
@@ -54,21 +57,6 @@ export default function Maps(props) {
       }
     }
   }, [snackbarProps])
-
-  // const getTableInfo = async () => {
-  //   const { data } = await axios.get(
-  //     "https://redy-capstone.herokuapp.com/api/restaurant"
-  //   );
-  //   const restaurantId = data.filter((place) => {
-  //     if (place.name === dialogInfo.title) {
-  //       console.log(place.id);
-  //       return place;
-  //     }
-  //   });
-  //   let selected = restaurantId[0].id;
-
-  //   setSelectedRestaurant(selected);
-  // };
 
   const handleFetchSingleRedyRestaurant = (restaurant) => {
     const selectedRedyRestaurant = redyRestaurant.filter((redyRestaurant) => {
@@ -128,6 +116,7 @@ export default function Maps(props) {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
+                    // image={RedyLogo}
                     pinColor="green"
                     title={restaurant.name}
                     onPress={() => {
@@ -141,7 +130,16 @@ export default function Maps(props) {
                       setRestaurantPlaceID(restaurant.placeId);
                       setVisibleState(true);
                     }}
-                  />
+                  >
+                    {/* <Image
+                      source={RedyLogo}
+                      style={{
+                        width: 28,
+                        height: 28,
+                      }}
+                      resizeMode="contain"
+  /> */}
+                  </Marker>
                 );
               } else if (redyRestaurant[redyRestaurant.findIndex(redy => redy.placeId === googleRestaurant[index].placeId)].diningTables.length > 0){
                 return (
@@ -151,7 +149,7 @@ export default function Maps(props) {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
-                    pinColor="red"
+                    pinColor="yellow"
                     title={restaurant.name}
                     onPress={() => {
                       handleFetchSingleRedyRestaurant(restaurant);
@@ -174,7 +172,7 @@ export default function Maps(props) {
                     longitude: restaurant.longitude,
                     latitude: restaurant.latitude,
                   }}
-                  pinColor="yellow"
+                  pinColor="red"
                   title={restaurant.name}
                   onPress={() => {
                     handleFetchSingleRedyRestaurant(restaurant);
@@ -198,7 +196,7 @@ export default function Maps(props) {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
-                    pinColor={'blue'}
+                    pinColor={pinColor}
 
                     title={restaurant.name}
                     onPress={() => {
@@ -231,6 +229,96 @@ export default function Maps(props) {
               }
             })}
       </MapView>
+      <View
+              style={{
+                position: 'absolute',//use absolute position to show button on top of the map
+                top: '75%', //for center align
+                right: '5%', //for center align
+                alignSelf: 'flex-end', //for align to right,
+                zIndex: 2,
+                elevation: 2,
+                backgroundColor: 'white',
+                height: 150,
+                width: 100,
+            }}
+      >
+        <View
+        style={{
+
+
+        }}
+        >
+
+        </View>
+        <View
+        style={{
+          flexDirection: 'row'
+        }}
+        >
+        <View
+style={{
+  height: 20,
+  width: 20,
+  backgroundColor: 'green',
+
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>3+ Open Tables</Text>
+</View>
+  <View
+        style={{
+          flexDirection: 'row'
+        }}
+        >
+        <View
+style={{
+  height: 20,
+  width: 20,
+  backgroundColor: 'yellow',
+
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>Few Tables Left</Text>
+</View>
+<View
+style={{
+  flexDirection: 'row'
+}}
+>
+<View
+style={{
+height: 20,
+width: 20,
+backgroundColor: 'red',
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>Tables Booked up; Join WaitList</Text>
+</View>
+<View
+        style={{
+          flexDirection: 'row'
+        }}
+        >
+ <View
+style={{
+  height: 20,
+  width: 20,
+  backgroundColor: 'blue',
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>Not w/ Redy</Text>
+  </View>
+
+
+      </View>
       <View>
         <Dialog.Container visible={visibleState}>
           <Dialog.Title>{dialogInfo.title}</Dialog.Title>
@@ -259,19 +347,6 @@ export default function Maps(props) {
           ) : null}
         </Dialog.Container>
       </View>
-      <Snackbar
-                      visible={snackBarVisible}
-                      onDismiss={() => {setVisibleState(false)}}
-                      action={{
-                        label: "Undo",
-                        onPress: () => {
-
-
-                        },
-                      }}
-                    >
-                      Hey there! I'm a Snackbar.
-                    </Snackbar>
     </View>
   );
 }
@@ -286,5 +361,5 @@ const styles = StyleSheet.create({
   map: {
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
-  },
+  }
 });
