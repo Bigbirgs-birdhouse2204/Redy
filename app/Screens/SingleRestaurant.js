@@ -74,25 +74,22 @@ const SingleRestaurant = (props) => {
         userId: user.id,
       })
     );
-   onToggleSnackBar()
-
-    navigation.navigate("Booking Confirmed", { selectedRestaurant });
+    onToggleSnackBar()
+    navigation.navigate("Maps", {snackbar: onToggleSnackBar(), timer});
   };
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
    const timer = setTimeout(() => {
     onDismissSnackBar();
-  }, 3000);
+  }, 10000);
+
+
   useEffect(() => {
     dispatch(fetchAllTables(selectedRestaurant.id));
-if(snackBarVisible){
-  timer();
-}
-
-    return () => clearTimeout(timer);
-
-  }, [setSnackBarVisible]);
-
+    if(snackBarVisible){
+      timer();
+    }
+      }, [setSnackBarVisible]);
   return (
     <PaperProvider>
       <SafeAreaView>
@@ -119,7 +116,13 @@ if(snackBarVisible){
                       placeholder="Enter your party size here"
                       keyboardType="numeric"
                     />
-                    <Snackbar
+
+                    <Dialog.Actions>
+                      <Button onPress={onCheckLimit}>Confirm</Button>
+                    </Dialog.Actions>
+                  </Dialog.Content>
+                </Dialog>
+                <Snackbar
                       visible={snackBarVisible}
                       onDismiss={onDismissSnackBar}
                       action={{
@@ -132,11 +135,6 @@ if(snackBarVisible){
                     >
                       Hey there! I'm a Snackbar.
                     </Snackbar>
-                    <Dialog.Actions>
-                      <Button onPress={onCheckLimit}>Confirm</Button>
-                    </Dialog.Actions>
-                  </Dialog.Content>
-                </Dialog>
               </Portal>
             </>
           ) : (

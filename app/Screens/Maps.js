@@ -7,7 +7,7 @@ import axios from "axios";
 import Dialog from "react-native-dialog";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { Button } from "react-native-paper";
+import { Button, Snackbar } from "react-native-paper";
 
 import { fetchAllNearbyRestaurants } from "../store/googleRestaurant";
 import {
@@ -15,7 +15,7 @@ import {
   fetchSingleRedyRestaurant,
 } from "../store/redyRestaurant";
 
-export default function Maps() {
+export default function Maps(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -31,11 +31,29 @@ export default function Maps() {
   const [visibleState, setVisibleState] = useState(false);
   const [dialogInfo, setDialogInfo] = useState({});
   const [selectedRestaurant, setSelectedRestaurant] = useState(0);
+  const [snackBarVisible, setSnackBarVisible] = useState(false);
+  const [snackbarProps, setSnackbarProps] = useState(false);
 
   useEffect(() => {
     dispatch(fetchAllNearbyRestaurants());
     dispatch(fetchAllRedyRestaurants());
+    if (props.route.params){
+      if (props.route.params.snackbar) {
+        setSnackbarProps(true);
+      props.route.params.timer();
+      // return () => clearTimeout(props.route.params.timer);
+      }
+    }
   }, []);
+
+  useEffect(() => {
+    if (props.route.params){
+      if (props.route.params.snackbar) {
+      props.route.params.timer();
+      return () => clearTimeout(props.route.params.timer);
+      }
+    }
+  }, [snackbarProps])
 
   // const getTableInfo = async () => {
   //   const { data } = await axios.get(
@@ -241,6 +259,19 @@ export default function Maps() {
           ) : null}
         </Dialog.Container>
       </View>
+      <Snackbar
+                      visible={snackBarVisible}
+                      onDismiss={() => {setVisibleState(false)}}
+                      action={{
+                        label: "Undo",
+                        onPress: () => {
+
+
+                        },
+                      }}
+                    >
+                      Hey there! I'm a Snackbar.
+                    </Snackbar>
     </View>
   );
 }
