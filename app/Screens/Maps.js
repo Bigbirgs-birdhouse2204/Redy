@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Marker } from "react-native-maps";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
 import * as Location from "expo-location";
 import axios from "axios";
 import Dialog from "react-native-dialog";
@@ -198,7 +198,7 @@ export default function Maps(props) {
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
-                    pinColor={'blue'}
+                    // pinColor={'blue'}
 
                     title={restaurant.name}
                     onPress={() => {
@@ -231,6 +231,83 @@ export default function Maps(props) {
               }
             })}
       </MapView>
+      <View
+              style={{
+                position: 'absolute',//use absolute position to show button on top of the map
+                top: '75%', //for center align
+                right: '5%', //for center align
+                alignSelf: 'flex-end', //for align to right,
+                zIndex: 2,
+                elevation: 2,
+                backgroundColor: 'white',
+                height: 150,
+                width: 100,
+            }}
+      >
+        <View
+        style={{
+
+
+        }}
+        >
+<Text
+style={{fontSize: 10,
+textAlign: "center"
+}}
+>Legend</Text>
+        </View>
+        <View
+        style={{
+          flexDirection: 'row'
+        }}
+        >
+        <View
+style={{
+  height: 20,
+  width: 20,
+  backgroundColor: 'green',
+
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>3+ Open Tables</Text>
+</View>
+<View
+        style={{
+          flexDirection: 'row'
+        }}
+        >
+ <View
+style={{
+  height: 20,
+  width: 20,
+  backgroundColor: 'red',
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>Not w/ Redy</Text>
+        </View>
+
+        <View
+        style={{
+          flexDirection: 'row'
+        }}
+        >
+ <View
+style={{
+  height: 20,
+  width: 20,
+  backgroundColor: 'yellow',
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>Tables Booked up; Join WaitList</Text>
+        </View>
+
+      </View>
       <View>
         <Dialog.Container visible={visibleState}>
           <Dialog.Title>{dialogInfo.title}</Dialog.Title>
