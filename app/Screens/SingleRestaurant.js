@@ -1,10 +1,11 @@
+
 import { StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
-// import Dialog from "react-native-dialog";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../CustomComponents/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+
 import {
   Provider as PaperProvider,
   Text,
@@ -22,6 +23,7 @@ import {
 import { fetchAllTables } from "../store/tables";
 import { editTable } from "../store/tables";
 import { createReservation, joinWaitList } from "../store/reservation";
+
 
 const SingleRestaurant = (props) => {
   const selectedRestaurant = props.route.params.selectedRestaurant[0];
@@ -43,7 +45,7 @@ const SingleRestaurant = (props) => {
     dispatch(editTable(selectedRestaurant.id, table.id));
     dispatch(
       createReservation({
-        status: "Booked",
+        status: 'Booked',
         partySize: table.seats,
         restaurantId: selectedRestaurant.id,
         userId: user.id,
@@ -82,6 +84,7 @@ const SingleRestaurant = (props) => {
    const timer = setTimeout(() => {
     onDismissSnackBar();
   }, 10000);
+
 
 
   useEffect(() => {
@@ -169,7 +172,8 @@ export default SingleRestaurant;
 const styles = StyleSheet.create({
   title: {
     fontSize: 40,
-    textAlign: "center",
-    fontFamily: "Times New Roman",
+    textAlign: 'center',
+    fontFamily: 'Times New Roman',
+
   },
 });
