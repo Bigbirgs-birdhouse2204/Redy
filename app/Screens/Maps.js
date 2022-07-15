@@ -15,6 +15,7 @@ import {
   fetchSingleRedyRestaurant,
 } from '../store/redyRestaurant';
 
+const RedyLogo = require('../assets/Redy.png')
 export default function Maps(props) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -54,21 +55,6 @@ export default function Maps(props) {
       }
     }
   }, [snackbarProps])
-
-  // const getTableInfo = async () => {
-  //   const { data } = await axios.get(
-  //     "https://redy-capstone.herokuapp.com/api/restaurant"
-  //   );
-  //   const restaurantId = data.filter((place) => {
-  //     if (place.name === dialogInfo.title) {
-  //       console.log(place.id);
-  //       return place;
-  //     }
-  //   });
-  //   let selected = restaurantId[0].id;
-
-  //   setSelectedRestaurant(selected);
-  // };
 
   const handleFetchSingleRedyRestaurant = (restaurant) => {
     const selectedRedyRestaurant = redyRestaurant.filter((redyRestaurant) => {
@@ -123,11 +109,13 @@ export default function Maps(props) {
 
                 return (
                   <Marker
+                    style = {{width: 20, height: 20}}
                     key={index}
                     coordinate={{
                       longitude: restaurant.longitude,
                       latitude: restaurant.latitude,
                     }}
+                    // image={RedyLogo}
                     pinColor="green"
                     title={restaurant.name}
                     onPress={() => {
@@ -141,7 +129,13 @@ export default function Maps(props) {
                       setRestaurantPlaceID(restaurant.placeId);
                       setVisibleState(true);
                     }}
-                  />
+                  >
+                    <Image
+                      source={RedyLogo}
+                      style={{width: 26, height: 28}}
+                      resizeMode="contain"
+  />
+                  </Marker>
                 );
               } else if (redyRestaurant[redyRestaurant.findIndex(redy => redy.placeId === googleRestaurant[index].placeId)].diningTables.length > 0){
                 return (
@@ -364,4 +358,8 @@ const styles = StyleSheet.create({
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
   },
+  marker: {
+    height: 20,
+    width: 20
+  }
 });
