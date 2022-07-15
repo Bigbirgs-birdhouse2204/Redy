@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { getOwnerRestaurants, logout } from '../store';
 import CustomButton from '../CustomComponents/CustomButton';
+import { Button } from 'react-native-paper';
 
 const BusinessReservations = ({ navigation }) => {
   const { owner: restaurant } = useSelector((state) => {
@@ -40,9 +41,7 @@ const BusinessReservations = ({ navigation }) => {
   // };
 
   const handleRedirect = (restaurant) => {
-    navigation.navigate('Single Reservation Business',
-      restaurant,
-    );
+    navigation.navigate('Single Reservation Business', restaurant);
   };
 
   useEffect(() => {
@@ -51,20 +50,33 @@ const BusinessReservations = ({ navigation }) => {
 
   return (
     <SafeAreaView>
-      <Text>Reservations</Text>
+      <Text
+        style={{
+          fontSize: 40,
+          textAlign: 'center',
+          fontFamily: 'Times New Roman',
+        }}
+      >
+        See Reservations
+      </Text>
       {!restaurant.length ? (
         <Text>
-          You don't have Restaurants to manage. Please add a Restaurant{' '}
+          You don't have Restaurants to manage. Please add a Restaurant
         </Text>
       ) : (
         restaurant.map((restaurant, i) => (
           <CustomButton
             key={i}
             text={`${restaurant.name}`}
-            onPress={ () => handleRedirect(restaurant)}
+            onPress={() => handleRedirect(restaurant)}
           />
         ))
       )}
+      <Button
+        style={{ bottom: 20 }}
+        title="Back to Home"
+        onPress={() => navigation.navigate('Home')}
+      />
       <CustomButton text="Sign Out" onPress={logOutTest} />
     </SafeAreaView>
   );

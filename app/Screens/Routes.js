@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import Home from './Home';
 import Maps from './Maps';
@@ -30,7 +31,11 @@ export default function App() {
   const { auth } = useSelector((state) => {
     return state;
   });
-  return !auth.isOwner ? (
+  {
+    console.log('YO THIS IS AUTH', auth);
+  }
+  //THIS IS THE LAST CONTROL Z
+  return !auth.id ? (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
@@ -48,6 +53,32 @@ export default function App() {
             headerShown: false,
           }}
         />
+        {/* <Tab.Screen
+          name="Map View"
+          component={Maps}
+          options={{ headerShown: false }}
+        /> */}
+      </Tab.Navigator>
+    </NavigationContainer>
+  ) : !auth.isOwner && auth.id ? (
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={{
+          initialRouteName: 'Home Screen',
+
+          labelStyle: { fontSize: 18 },
+          activeTintColor: 'red',
+          inactiveTintColor: 'black',
+        }}
+      >
+        <Tab.Screen
+          name="Home Screen"
+          component={UserNavigator}
+          options={{
+            headerShown: false,
+          }}
+        />
+
         <Tab.Screen
           name="Map View"
           component={Maps}
@@ -99,13 +130,13 @@ export default function App() {
 
 const UserNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Sign In">
+    <Stack.Navigator>
+      <Stack.Screen name="Sign In" component={SignInScreen} />
       <Stack.Screen
         name="Home"
         component={Home}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Sign In" component={SignInScreen} />
 
       <Stack.Screen
         name="Maps"
