@@ -8,7 +8,7 @@ import axios from "axios";
 import Dialog from "react-native-dialog";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Snackbar } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { fetchAllNearbyRestaurants } from "../store/googleRestaurant";
 import {
   fetchAllRedyRestaurants,
@@ -248,11 +248,7 @@ export default function Maps(props) {
 
         }}
         >
-<Text
-style={{fontSize: 10,
-textAlign: "center"
-}}
->Legend</Text>
+
         </View>
         <View
         style={{
@@ -271,6 +267,39 @@ style={{
 style={{fontSize: 10}}
 >3+ Open Tables</Text>
 </View>
+  <View
+        style={{
+          flexDirection: 'row'
+        }}
+        >
+        <View
+style={{
+  height: 20,
+  width: 20,
+  backgroundColor: 'yellow',
+
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>Few Tables Left</Text>
+</View>
+<View
+style={{
+  flexDirection: 'row'
+}}
+>
+<View
+style={{
+height: 20,
+width: 20,
+backgroundColor: 'red',
+}}
+/>
+<Text
+style={{fontSize: 10}}
+>Tables Booked up; Join WaitList</Text>
+</View>
 <View
         style={{
           flexDirection: 'row'
@@ -280,30 +309,14 @@ style={{fontSize: 10}}
 style={{
   height: 20,
   width: 20,
-  backgroundColor: 'red',
+  backgroundColor: 'blue',
 }}
 />
 <Text
 style={{fontSize: 10}}
 >Not w/ Redy</Text>
-        </View>
+  </View>
 
-        <View
-        style={{
-          flexDirection: 'row'
-        }}
-        >
- <View
-style={{
-  height: 20,
-  width: 20,
-  backgroundColor: 'yellow',
-}}
-/>
-<Text
-style={{fontSize: 10}}
->Tables Booked up; Join WaitList</Text>
-        </View>
 
       </View>
       <View>
@@ -334,19 +347,6 @@ style={{fontSize: 10}}
           ) : null}
         </Dialog.Container>
       </View>
-      <Snackbar
-                      visible={snackBarVisible}
-                      onDismiss={() => {setVisibleState(false)}}
-                      action={{
-                        label: "Undo",
-                        onPress: () => {
-
-
-                        },
-                      }}
-                    >
-                      Hey there! I'm a Snackbar.
-                    </Snackbar>
     </View>
   );
 }
