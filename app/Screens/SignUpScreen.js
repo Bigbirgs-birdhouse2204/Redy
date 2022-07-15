@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, Alert } from "react-native";
 import React, { useState } from "react";
 
 import CustomInput from "../CustomComponents/CustomInput";
@@ -17,6 +17,11 @@ const SignUpScreen = () => {
     navigation.navigate("Sign Up Business User");
   };
 
+  function tempBusinessClosure() {
+    Alert.alert("Sorry, We're not accepting business users at this time.");
+    navigation.navigate("Sign In");
+  }
+
   return (
     <View style={styles.logotitle}>
       <Text style={styles.title}>Create an Account</Text>
@@ -32,7 +37,7 @@ const SignUpScreen = () => {
       <CustomButton
         text="Business Account"
         // onPress={handleSignUp}
-        onPress={onCreateBusinessPressed}
+        onPress={tempBusinessClosure}
       />
     </View>
   );
