@@ -1,11 +1,12 @@
-import "react-native-gesture-handler";
-import * as React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useSelector } from "react-redux";
-import { useState } from "react";
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useSelector } from 'react-redux';
+import { Ionicons } from '@expo/vector-icons';
+
 
 import Home from "./Home";
 import Maps from "./Maps";
@@ -36,13 +37,22 @@ export default function App() {
   return !auth.id ? (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{
-          initialRouteName: "Home Screen",
 
-          labelStyle: { fontSize: 18 },
-          activeTintColor: "red",
-          inactiveTintColor: "black",
-        }}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home Screen') {
+              iconName = focused ? 'home' : 'home-outline';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+
       >
         <Tab.Screen
           name="Home Screen"
@@ -56,13 +66,24 @@ export default function App() {
   ) : !auth.isOwner && auth.id ? (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{
-          initialRouteName: "Home Screen",
 
-          labelStyle: { fontSize: 18 },
-          activeTintColor: "red",
-          inactiveTintColor: "black",
-        }}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home Screen') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Map View') {
+              iconName = focused ? 'map' : 'map-outline';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+
       >
         <Tab.Screen
           name="Home Screen"
@@ -82,13 +103,28 @@ export default function App() {
   ) : (
     <NavigationContainer>
       <Tab.Navigator
-        screenOptions={{
-          initialRouteName: "Home Screen",
 
-          labelStyle: { fontSize: 18 },
-          activeTintColor: "red",
-          inactiveTintColor: "black",
-        }}
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home Screen') {
+              iconName = focused ? 'home' : 'home-outline';
+            } else if (route.name === 'Map View') {
+              iconName = focused ? 'map' : 'map-outline';
+            } else if (route.name === 'Manage Restaurants') {
+              iconName = focused ? 'pencil' : 'pencil-outline';
+            } else if (route.name === 'View Reservations') {
+              iconName = focused ? 'eye' : 'eye-outline';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: 'tomato',
+          tabBarInactiveTintColor: 'gray',
+        })}
+
       >
         <Tab.Screen
           name="Home Screen"
