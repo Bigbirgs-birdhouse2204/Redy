@@ -7,20 +7,21 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons';
 
-import Home from './Home';
-import Maps from './Maps';
-import SignInScreen from './SignInScreen';
-import SignUpScreen from './SignUpScreen';
-import SingleRestaurant from './SingleRestaurant';
-import SignUpUser from './SignUpUser';
-import SignUpBusinessUser from './SignUpBusinessUser';
-import ManageBusiness from './ManageBusiness';
-import AddRestaurant from './AddRestaurant';
-import EditRestaurant from './EditRestaurant';
-import EditTable from './EditTable';
-import BusinessReservations from './BusinessReservations';
-import SingleReservationBusiness from './SingleReservationBusiness';
-import BookingConfirmed from './BookingConfirmed';
+
+import Home from "./Home";
+import Maps from "./Maps";
+import SignInScreen from "./SignInScreen";
+import SignUpScreen from "./SignUpScreen";
+import SingleRestaurant from "./SingleRestaurant";
+import SignUpUser from "./SignUpUser";
+import SignUpBusinessUser from "./SignUpBusinessUser";
+import ManageBusiness from "./ManageBusiness";
+import AddRestaurant from "./AddRestaurant";
+import EditRestaurant from "./EditRestaurant";
+import EditTable from "./EditTable";
+import BusinessReservations from "./BusinessReservations";
+import SingleReservationBusiness from "./SingleReservationBusiness";
+import BookingConfirmed from "./BookingConfirmed";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,12 +31,13 @@ export default function App() {
     return state;
   });
   {
-    console.log('YO THIS IS AUTH', auth);
+    console.log("YO THIS IS AUTH", auth);
   }
   //THIS IS THE LAST CONTROL Z
   return !auth.id ? (
     <NavigationContainer>
       <Tab.Navigator
+
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -50,6 +52,7 @@ export default function App() {
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
         })}
+
       >
         <Tab.Screen
           name="Home Screen"
@@ -63,6 +66,7 @@ export default function App() {
   ) : !auth.isOwner && auth.id ? (
     <NavigationContainer>
       <Tab.Navigator
+
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -79,6 +83,7 @@ export default function App() {
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
         })}
+
       >
         <Tab.Screen
           name="Home Screen"
@@ -98,6 +103,7 @@ export default function App() {
   ) : (
     <NavigationContainer>
       <Tab.Navigator
+
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
@@ -118,6 +124,7 @@ export default function App() {
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
         })}
+
       >
         <Tab.Screen
           name="Home Screen"
@@ -153,7 +160,11 @@ export default function App() {
 const UserNavigator = () => {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Sign In" component={SignInScreen} />
+      <Stack.Screen
+        name="Sign In"
+        component={SignInScreen}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="Home"
         component={Home}

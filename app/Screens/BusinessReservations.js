@@ -1,24 +1,17 @@
-import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StyleSheet, Text, View, SafeAreaView, Button } from "react-native";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getOwnerRestaurants, logout } from "../store";
+import CustomButton from "../CustomComponents/CustomButton";
 
-import { getOwnerRestaurants, logout } from '../store';
-import CustomButton from '../CustomComponents/CustomButton';
-import { Button } from 'react-native-paper';
+import text from "../CustomComponents/Text";
 
 const BusinessReservations = ({ navigation }) => {
   const { owner: restaurant } = useSelector((state) => {
     return state;
   });
   const dispatch = useDispatch();
-  const logOutTest = async () => {
-    try {
-      dispatch(logout(navigation));
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   // const getRestaurantInfo = async () => {
   //   const { data } = await axios.get(
@@ -41,7 +34,7 @@ const BusinessReservations = ({ navigation }) => {
   // };
 
   const handleRedirect = (restaurant) => {
-    navigation.navigate('Single Reservation Business', restaurant);
+    navigation.navigate("Single Reservation Business", restaurant);
   };
 
   useEffect(() => {
@@ -53,14 +46,14 @@ const BusinessReservations = ({ navigation }) => {
       <Text
         style={{
           fontSize: 40,
-          textAlign: 'center',
-          fontFamily: 'Times New Roman',
+          textAlign: "center",
+          fontFamily: text.primaryFont,
         }}
       >
         See Reservations
       </Text>
       {!restaurant.length ? (
-        <Text>
+        <Text style={{ fontFamily: text.primaryFont }}>
           You don't have Restaurants to manage. Please add a Restaurant
         </Text>
       ) : (
@@ -75,9 +68,8 @@ const BusinessReservations = ({ navigation }) => {
       <Button
         style={{ bottom: 20 }}
         title="Back to Home"
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate("Home")}
       />
-      <CustomButton text="Sign Out" onPress={logOutTest} />
     </SafeAreaView>
   );
 };

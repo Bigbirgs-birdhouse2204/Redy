@@ -4,10 +4,10 @@ import {
   Image,
   ScrollView,
   SafeAreaView,
-} from 'react-native';
-import { useState, useEffect } from 'react';
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+} from "react-native";
+import { useState, useEffect } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Provider as PaperProvider,
   Text,
@@ -16,9 +16,11 @@ import {
   Button,
   Title,
   Paragraph,
-} from 'react-native-paper';
-import CustomButton from '../CustomComponents/CustomButton';
-import { useNavigation } from '@react-navigation/native';
+} from "react-native-paper";
+import CustomButton from "../CustomComponents/CustomButton";
+import { useNavigation } from "@react-navigation/native";
+
+import text from "../CustomComponents/Text";
 
 const BookingConfirmed = (props) => {
   const navigation = useNavigation();
@@ -29,21 +31,22 @@ const BookingConfirmed = (props) => {
     return state.auth;
   });
 
-  useEffect(() => {
-    console.log('this is props', props);
-  });
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titlecard}>
         <Text style={styles.title}>{selectedRestaurant.name}</Text>
         <Card>
           <Card.Content>
-            <Paragraph>Maximum Party Size: {table.seats} </Paragraph>
-            <Paragraph>Address: {selectedRestaurant.address}</Paragraph>
+            <Paragraph style={{ fontFamily: text.primaryFont }}>
+              Maximum Party Size: {table.seats}{" "}
+            </Paragraph>
+            <Paragraph style={{ fontFamily: text.primaryFont }}>
+              Address: {selectedRestaurant.address}
+            </Paragraph>
           </Card.Content>
           <Card.Cover
             source={{
-              uri: 'https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730',
+              uri: "https://media.cool-cities.com/macao002pr_f_mob.jpg?h=730",
             }}
           />
           <Card.Actions>{/* <Button>Cancel</Button> */}</Card.Actions>
@@ -67,20 +70,21 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 40,
-    textAlign: 'center',
-    fontFamily: 'Times New Roman',
+    textAlign: "center",
+    fontFamily: text.primaryFont,
     bottom: 50,
   },
   confirmationlogo: {
     height: 500,
   },
   thankyoutext: {
-    textAlign: 'center',
+    fontFamily: text.primaryFont,
+    textAlign: "center",
   },
   container: {
     flex: 1,
     // justifyContent: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
   },
   titlecard: {},
 });
