@@ -13,26 +13,6 @@ const BusinessReservations = ({ navigation }) => {
   });
   const dispatch = useDispatch();
 
-  // const getRestaurantInfo = async () => {
-  //   const { data } = await axios.get(
-  //     'https://redy-capstone.herokuapp.com/api/restaurant'
-  //   );
-  //   const restaurantId = data.filter((place) => {
-  //     if (place.name === dialogInfo.title) {
-  //       console.log(place.id);
-  //       return place;
-  //     }
-  //   });
-  //   let selected = restaurantId[0].id;
-
-  //   setSelectedRestaurant(selected);
-
-  //   // data.filter(restaurant => )
-
-  //   console.log('THIS IS RESTAURANT ID', selected);
-  //   // const { data } = await axios.get('/api/table/restaurant/:id');
-  // };
-
   const handleRedirect = (restaurant) => {
     navigation.navigate("Single Reservation Business", restaurant);
   };

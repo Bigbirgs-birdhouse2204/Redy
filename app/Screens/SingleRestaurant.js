@@ -1,8 +1,9 @@
 
-import { StyleSheet, View, ScrollView, SafeAreaView } from "react-native";
+import { StyleSheet, View, ScrollView, SafeAreaView, } from "react-native";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import CustomButton from "../CustomComponents/CustomButton";
+import appFont from "../CustomComponents/Text.js";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
@@ -177,7 +178,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     textAlign: 'center',
-    fontFamily: 'Times New Roman',
+    fontFamily: appFont.primaryFont,
 
   },
 });
