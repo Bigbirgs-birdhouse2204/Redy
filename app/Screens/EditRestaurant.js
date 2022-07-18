@@ -23,8 +23,6 @@ const EditRestaurant = (props) => {
   const navigation = useNavigation();
 
   const { params: restaurant } = props.route;
-  console.log(`This is the props: `, restaurant);
-
   const getTables = async (restaurantId) => {
     const { data } = await axios.get(
       `https://redy-capstone.herokuapp.com/api/table/all/restaurant/${restaurantId}`
@@ -33,12 +31,10 @@ const EditRestaurant = (props) => {
       // const seatsObj = data.map(d => {return  { [d.id] : {seats: d.seats, isOccupied: d.isOccupied} }} )
 
       setSeats
-    console.log('THIS IS TABLE', data);
   };
 
   const tablePicked = async (tableId) => {
     await setTableSelected(tableId);
-    console.log('THIS IS THE TABLE PICKED', tableSelected);
     navigation.navigate('Edit Table', {
       tableSelected,
     });

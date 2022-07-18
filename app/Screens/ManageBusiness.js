@@ -13,45 +13,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getOwnerRestaurants, logout } from "../store";
 import CustomButton from "../CustomComponents/CustomButton";
 
+import appFont from '../CustomComponents/Text.js'
+
 const ManageBusiness = ({ navigation }) => {
   const { owner: restaurant } = useSelector((state) => {
     return state;
   });
   const dispatch = useDispatch();
 
-  //logout button
-  // const logOutTest = async () => {
-  //   try {
-  //     dispatch(logout(navigation));
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const onAddRestaurantPressed = () => {
     navigation.navigate("Add Restaurant");
   };
 
-  // const getRestaurantInfo = async () => {
-  //   const { data } = await axios.get(
-  //     'https://redy-capstone.herokuapp.com/api/restaurant'
-  //   );
-  //   const restaurantId = data.filter((place) => {
-  //     if (place.name === dialogInfo.title) {
-  //       console.log(place.id);
-  //       return place;
-  //     }
-  //   });
-  //   let selected = restaurantId[0].id;
-
-
-  //   setSelectedRestaurant(selected);
-
-  //   // data.filter(restaurant => )
-
-  //   console.log('THIS IS RESTAURANT ID', selected);
-  //   // const { data } = await axios.get('/api/table/restaurant/:id');
-  // };
 
   const handleRedirect = (restaurant) => {
     navigation.navigate('Edit Restaurant',
@@ -70,7 +43,7 @@ const ManageBusiness = ({ navigation }) => {
           style={{
             fontSize: 40,
             textAlign: "center",
-            fontFamily: "Times New Roman",
+            fontFamily: appFont.primaryFont,
           }}
         >
           Manage Businesses

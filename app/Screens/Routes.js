@@ -29,10 +29,6 @@ export default function App() {
   const { auth } = useSelector((state) => {
     return state;
   });
-  {
-    console.log('YO THIS IS AUTH', auth);
-  }
-  //THIS IS THE LAST CONTROL Z
   return !auth.id ? (
     <NavigationContainer>
       <Tab.Navigator

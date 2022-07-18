@@ -23,10 +23,6 @@ const SingleReservationBusiness = (props) => {
 
   let restaurantId = props.route.params.id;
   let restaurant = props.route.params
-  {
-    console.log('YO THIS IS PROPS', props.route.params.tableSelected);
-    console.log('SEATS IS THIS MUCH', seat);
-  }
 
   useEffect(() => {
     getTableSelected(restaurantId);
@@ -36,20 +32,10 @@ const SingleReservationBusiness = (props) => {
     const { data } = await axios.get(
       `https://redy-capstone.herokuapp.com/api/reservation/business/${rId}`
     );
-    console.log(data)
     setReservation(data);
 
-    // console.log('WE EDITING THIS TABLE', Settings);
   };
 
-  // const reservationSettings = async () => {
-  //   const { data } = await axios.get(
-  //     `https://redy-capstone.herokuapp.com/api/table/${tableId}`
-  //   );
-  //   setReservation(data);
-
-  //   // console.log('WE EDITING THIS TABLE', Settings);
-  // };
 
   return (
     <PaperProvider>
@@ -76,7 +62,6 @@ const SingleReservationBusiness = (props) => {
           }
 
           <Card.Actions>
-            {/* <Button onPress={() => reservationSettings()}>Update Table</Button> */}
           </Card.Actions>
         </Card>
       </ScrollView>

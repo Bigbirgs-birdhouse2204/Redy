@@ -22,10 +22,7 @@ const EditTable = (props) => {
   const [seat, setSeat] = useState();
 
   let tableSelected = props.route.params.tableSelected;
-  {
-    console.log('YO THIS IS PROPS', props.route.params.tableSelected);
-    console.log('SEATS IS THIS MUCH', seat);
-  }
+
 
   useEffect(() => {
     getTableSelected(tableSelected);
@@ -36,18 +33,7 @@ const EditTable = (props) => {
       `https://redy-capstone.herokuapp.com/api/table/${tableId}`
     );
     setUpdateTable(data);
-
-    // console.log('WE EDITING THIS TABLE', Settings);
   };
-
-  // const updateTableSettings = async () => {
-  //   const { data } = await axios.get(
-  //     `https://redy-capstone.herokuapp.com/api/table/${tableId}`
-  //   );
-  //   setUpdateTable(data);
-
-  //   // console.log('WE EDITING THIS TABLE', Settings);
-  // };
 
   return (
     <PaperProvider>
@@ -55,11 +41,6 @@ const EditTable = (props) => {
         <Card>
           <Card.Title subtitle="Please edit this table." />
           <Card.Content>
-            {/* <Title>Table for "INSERT NUMBER HERE"</Title> */}
-            {/* <Paragraph>Maximum Party Size: {Settings.seats} </Paragraph>
-            <Paragraph>
-              Is this table occupied?: {`${updateTable.isOccupied}`}
-            </Paragraph> */}
             <TextInput
               onChangeText={(text) => setSeat(text)}
               value={`${updateTable.seats}`}
