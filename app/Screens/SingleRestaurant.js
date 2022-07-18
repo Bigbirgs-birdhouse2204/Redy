@@ -32,7 +32,7 @@ const SingleRestaurant = (props) => {
 
   const [visible, setVisible] = useState(false);
   const [waitListVisible, setWaitListVisible] = useState(false);
-  const [partySize, setPartySize] = useState("0");
+  const [partySize, setPartySize] = useState(0);
   const onToggleWaitList = () => setWaitListVisible(!waitListVisible);
   const onDismissWaitList = () => setWaitListVisible(false);
   const tables = useSelector((state) => {
